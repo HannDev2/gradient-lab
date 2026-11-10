@@ -2,13 +2,9 @@ import { useEffect, useState } from 'react';
 import { Walkthrough } from './components/Walkthrough';
 import { Laboratory } from './components/Laboratory';
 import { Foundations } from './components/Foundations';
-import { SurfacePreview } from './components/SurfacePreview';
+import { Home } from './components/Home';
 import { Arrow, Mark } from './components/shared';
 import { useSimulation } from './state/useSimulation';
-
-function Home() {
-  return <main id="main" className="home page-width"><div className="home-topline"><span>UNAM · Facultad de Ingeniería</span><span className="mono">CÁLCULO VECTORIAL / 2027-1</span></div><div className="home-experiment"><div className="home-copy"><h1 aria-label="GRADIENT LAB">GRADIENT<br/><span>LAB</span><span className="title-period">.</span></h1><p className="home-subtitle">Aprender del error:<br/>el gradiente y la matriz jacobiana.</p><p className="home-concept">Una inteligencia artificial no aprende porque conoce las respuestas. <span>Aprende porque puede medir sus errores.</span></p><div className="home-actions"><a className="button primary" href="#/aprender/1">Comenzar experimento<Arrow/></a><a className="text-button" href="#/laboratorio">Explorar laboratorio<Arrow/></a></div></div><div className="home-field"><SurfacePreview/><div className="field-caption"><span className="dot green-dot"/><p>Un error no es el final.<br/><strong>Es una dirección.</strong></p><span className="mono">∇L</span></div></div></div><div className="home-bottom"><p>Una neurona. Tres pesos.<br/><span>Todo un paisaje por explorar.</span></p><div className="home-sequence mono"><span>PREDECIR</span><Arrow/><span>MEDIR</span><Arrow/><span>AJUSTAR</span></div><a href="#/fundamentos" className="text-button">El cálculo detrás<Arrow/></a></div><div className="academic-signature"><span>Hanniel Cardoso Jaramillo · Angel Joseph Estrada Santos</span><span>Grupo 13 · Proyecto estudiantil independiente</span></div></main>;
-}
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash || '#/');
@@ -43,7 +39,7 @@ export default function App() {
     {chapter ? <Walkthrough key={tourVersion} chapter={chapter} dispatch={dispatch} restart={() => { setTourVersion(v => v + 1); window.location.hash = '/aprender/1'; }}/>
       : hash === '#/laboratorio' ? <Laboratory state={simulation.state} dispatch={dispatch}/>
       : foundations ? <Foundations/>
-      : hash === '#/' || hash === '#' ? <Home/>
+      : hash === '#/' || hash === '#' ? <Home dispatch={dispatch}/>
       : <main id="main" className="page-width not-found"><h1>Esta ruta no existe.</h1><p>El experimento sigue aquí.</p><a className="button primary" href="#/">Volver al inicio<Arrow/></a></main>}
     <footer className="site-footer"><span>GRADIENT LAB <span className="muted">/ Aprender del error</span></span><span>Datos hipotéticos. Ciencia real.</span><a href="#/fundamentos">Fuentes y créditos<Arrow/></a></footer></>;
 }

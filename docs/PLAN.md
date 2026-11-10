@@ -31,3 +31,7 @@
 ## Publicación
 
 Permisos efectivos comprobados: escritura, red, servidor local y GitHub CLI autenticado. Build, 31 pruebas matemáticas y 14 pruebas de navegador aprobados localmente; Actions publicó desde main y las 14 pruebas se repitieron contra la URL pública con éxito. Repositorio: https://github.com/HannDev2/gradient-lab. Sitio verificado: https://hanndev2.github.io/gradient-lab/. Evidencia detallada en VERIFICATION.md; guion de demostración en DEMO.md.
+
+## Iteración posterior
+
+La evolución visual v2 se desarrolla en `feature/visual-v2`. Su alcance, cuatro fases y evidencia se registran en [VISUAL_V2.md](VISUAL_V2.md), y el resumen de entrega en [ESTADO_ACTUAL.md](ESTADO_ACTUAL.md). La v1 pública permanece como referencia estable hasta aprobación expresa de la PR.

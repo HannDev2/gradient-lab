@@ -8,7 +8,9 @@ Una neurona lineal, siete capítulos interactivos y un laboratorio abierto permi
 
 [Abrir Gradient Lab](https://hanndev2.github.io/gradient-lab/) · [Repositorio público](https://github.com/HannDev2/gradient-lab)
 
-![Gradient Lab, observatorio interactivo del error](docs/screenshots/inicio-desktop.png)
+Esta rama contiene la evolución visual v2, pendiente de aprobación para sustituir el sitio público. [Informe de trabajo y estado actual](docs/ESTADO_ACTUAL.md) · [Comparación visual y rendimiento](docs/VISUAL_V2.md).
+
+![Gradient Lab v2, observatorio interactivo del error](docs/visual-v2/after/hero-1440.png)
 
 ## La experiencia
 
@@ -20,7 +22,7 @@ El ejemplo reproduce 99 → 112.14 de predicción y 648 → 261.2898 de pérdida
 
 ## Tecnologías y verificación
 
-Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 31 pruebas del motor, estado y geometría. Playwright: 14 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Build estático; sin backend ni API de IA.
+Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 32 pruebas del motor, estado y geometría. Playwright: 22 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Build estático; sin backend ni API de IA.
 
 Skills empleadas: Ponytail para alcance, Impeccable como guía visual principal, Animate para movimiento explicativo, planificación/TDD/verificación y revisión independiente de código. Decisiones y límites se detallan en la documentación.
 
@@ -47,6 +49,8 @@ La configuración de Pages usa `/gradient-lab/`. Las rutas hash funcionan al rec
 - [Sistema visual](docs/DESIGN_SYSTEM.md).
 - [Decisiones y skills](docs/DECISIONS.md).
 - [Informe de verificación](docs/VERIFICATION.md).
+- [Informe de trabajo y estado actual](docs/ESTADO_ACTUAL.md).
+- [Evolución visual v2 y capturas comparativas](docs/VISUAL_V2.md).
 - [Mantenimiento y publicación](docs/MAINTENANCE.md).
 - [Guion de demostración de 4 minutos](docs/DEMO.md).
 

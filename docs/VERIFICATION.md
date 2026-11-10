@@ -36,3 +36,11 @@ Las capturas de `docs/screenshots/` documentan la interfaz real. La experiencia 
 ## Alcance pendiente de comprobación manual
 
 No se probó en móviles físicos ni con lector de pantalla. Las pruebas de WebGL usan Chromium/SwiftShader; otros controladores pueden recurrir a la alternativa 2D. No se asignó licencia al trabajo original sin confirmación de ambos autores. El ejemplo sigue siendo una sola observación de entrenamiento y no demuestra generalización. Este documento se actualizará con evidencia antes de declarar publicación exitosa.
+
+## Iteración visual v2 — comprobación local posterior
+
+10 de noviembre de 2026, rama `feature/visual-v2`: 32/32 pruebas unitarias, 22/22 pruebas de navegador sobre build estático local y TypeScript/build aprobados. Se conservan los flujos previos y se comprueban portada de cinco momentos, transferencia de pesos, presentación por teclado, oscilación, liberación de Canvas fuera de vista y movimiento reducido. Detector Impeccable sin hallazgos activos; tipografía existente con excepción puntual documentada.
+
+Inspección con capturas comparativas a 360, 390, 768, 1440 y 1920 px. Sin overflow de portada en esas anchuras. Revisión independiente sin defectos críticos o importantes. No se modificaron motor ni reducer, y el cartel mantiene su hash. JS inicial 87,391 → 91,468 B gzip; CSS 8,035 → 12,744 B; escena lazy 249,780 → 250,297 B. La portada 3D incorpora una descarga adicional en escritorio. Muestras locales de FCP y limitaciones en [ESTADO_ACTUAL.md](ESTADO_ACTUAL.md), junto con componentes, interacciones y capturas.
+
+Esta comprobación no es un despliegue de v2. La versión pública de `main` se conserva hasta aprobación de la PR. El registro anterior corresponde a la publicación v1 y no se reetiqueta como validación pública de v2.
