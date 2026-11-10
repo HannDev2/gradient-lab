@@ -6,7 +6,7 @@ Laboratorio educativo en español de Hanniel Cardoso Jaramillo y Angel Joseph Es
 
 Una neurona lineal, siete capítulos interactivos y un laboratorio abierto permiten seguir el camino desde la predicción hasta la actualización simultánea de sus tres pesos. Todos los resultados se calculan en el navegador.
 
-[Repositorio público](https://github.com/HannDev2/gradient-lab) · Sitio: publicación en preparación.
+[Abrir Gradient Lab](https://hanndev2.github.io/gradient-lab/) · [Repositorio público](https://github.com/HannDev2/gradient-lab)
 
 ![Gradient Lab, observatorio interactivo del error](docs/screenshots/inicio-desktop.png)
 

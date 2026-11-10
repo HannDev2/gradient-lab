@@ -16,8 +16,23 @@ Se inspeccionaron capturas de portada, jacobiana, red neuronal, descenso y labor
 
 ## Construcción y dependencias
 
-TypeScript estricto y `npm run build`: aprobados. Fuentes latinas alojadas localmente. JavaScript inicial ~86 kB gzip; escena lazy ~250 kB gzip. Vite informa un chunk 3D superior a 500 kB sin comprimir; queda aislado en carga diferida. `npm audit --omit=dev`: cero vulnerabilidades al comprobar.
+TypeScript estricto y `npm run build`: aprobados. Fuentes latinas alojadas localmente. JavaScript inicial ~86 kB gzip; escena lazy ~250 kB gzip. Vite informa un chunk 3D superior a 500 kB sin comprimir; queda aislado en carga diferida. `npm audit`: cero vulnerabilidades en dependencias de producción y desarrollo al comprobar.
 
 ## Publicación
 
-Build estático servido con Vite preview: 14 pruebas de navegador aprobadas; rutas hash, recursos, PDF y consola comprobados, incluido móvil de 320 px. Revisión independiente completada y hallazgos corregidos. Repositorio público creado en https://github.com/HannDev2/gradient-lab. Pendientes: ejecución remota del workflow y URL pública. Este documento se actualizará con evidencia antes de declarar publicación exitosa.
+Build estático servido con Vite preview: 14 pruebas de navegador aprobadas; rutas hash, recursos, PDF y consola comprobados, incluido móvil de 320 px. Revisión independiente completada y hallazgos corregidos. Repositorio público creado en https://github.com/HannDev2/gradient-lab.
+
+**Publicado y comprobado el 10 de noviembre de 2026.**
+
+- Repositorio público: https://github.com/HannDev2/gradient-lab.
+- Sitio HTTPS: https://hanndev2.github.io/gradient-lab/ (HTTP 200).
+- Workflow de publicación de la aplicación: [42878988915](https://github.com/HannDev2/gradient-lab/actions/runs/42878988915), conclusión `success` en build y deploy. Código de aplicación: `8eb3289e9bfb52f21d2fefe20c1201d60670bbc2`.
+- Pages configurado con `build_type: workflow`, HTTPS habilitado y base Vite `/gradient-lab/`.
+- Suite completa contra Pages: `PLAYWRIGHT_BASE_URL=https://hanndev2.github.io/gradient-lab/ npm run test:e2e` → **14/14 aprobadas** (19.5 s). Incluye recarga hash, todos los capítulos, funcionamiento de controles, recursos estáticos/PDF, consola, WebGL/2D, pérdida de contexto, teclado, móvil de 320 px y Axe.
+- La copia del cartel conserva el SHA-256 del archivo suministrado: `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`.
+
+Las capturas de `docs/screenshots/` documentan la interfaz real. La experiencia pública conserva las interacciones, no depende de esas imágenes.
+
+## Alcance pendiente de comprobación manual
+
+No se probó en móviles físicos ni con lector de pantalla. Las pruebas de WebGL usan Chromium/SwiftShader; otros controladores pueden recurrir a la alternativa 2D. No se asignó licencia al trabajo original sin confirmación de ambos autores. El ejemplo sigue siendo una sola observación de entrenamiento y no demuestra generalización. Este documento se actualizará con evidencia antes de declarar publicación exitosa.

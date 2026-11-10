@@ -14,7 +14,7 @@
 - [x] Fase 3. Siete capítulos completos. Cada uno con visual, fórmula e interacción real; avanzar, retroceder y reiniciar con progreso persistente durante la sesión.
 - [x] Fase 4. Laboratorio. Pesos/eta precisos, paso/lote/reproducción/pausa, presets lento/estable/divergente, historial, jacobiana, gradiente y escena correcta con alternativa 2D.
 - [x] Fase 5. Refinamiento. Probar escritorio/móvil, teclado, movimiento reducido, fallos WebGL, overflow, gráficas y controles; inspección visual con capturas.
-- [ ] Fase 6. Build, pruebas finales y documentación. Configurar Actions con permisos mínimos, crear repositorio y publicar solo tras comprobaciones. Verificar sitio público y consola; aportar URLs y guion de demostración.
+- [x] Fase 6. Build, pruebas finales y documentación. Configurar Actions con permisos mínimos, crear repositorio y publicar solo tras comprobaciones. Verificar sitio público y consola; aportar URLs y guion de demostración.
 
 ## Archivos y responsabilidades
 
@@ -30,4 +30,4 @@
 
 ## Publicación
 
-Permisos efectivos comprobados: escritura, red, servidor local y GitHub CLI autenticado. Build y pruebas locales aprobados; publicación y comprobación remota pendientes. No se considera finalizado hasta comprobar la publicación o pedir la intervención mínima dejando todo lo demás listo.
+Permisos efectivos comprobados: escritura, red, servidor local y GitHub CLI autenticado. Build, 31 pruebas matemáticas y 14 pruebas de navegador aprobados localmente; Actions publicó desde main y las 14 pruebas se repitieron contra la URL pública con éxito. Repositorio: https://github.com/HannDev2/gradient-lab. Sitio verificado: https://hanndev2.github.io/gradient-lab/. Evidencia detallada en VERIFICATION.md; guion de demostración en DEMO.md.
