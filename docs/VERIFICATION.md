@@ -44,3 +44,5 @@ No se probó en móviles físicos ni con lector de pantalla. Las pruebas de WebG
 Inspección con capturas comparativas a 360, 390, 768, 1440 y 1920 px. Sin overflow de portada en esas anchuras. Revisión independiente sin defectos críticos o importantes. No se modificaron motor ni reducer, y el cartel mantiene su hash. JS inicial 87,391 → 91,468 B gzip; CSS 8,035 → 12,744 B; escena lazy 249,780 → 250,297 B. La portada 3D incorpora una descarga adicional en escritorio. Muestras locales de FCP y limitaciones en [ESTADO_ACTUAL.md](ESTADO_ACTUAL.md), junto con componentes, interacciones y capturas.
 
 Esta comprobación no es un despliegue de v2. La versión pública de `main` se conserva hasta aprobación de la PR. El registro anterior corresponde a la publicación v1 y no se reetiqueta como validación pública de v2.
+
+PR de entrega: [#1](https://github.com/HannDev2/gradient-lab/pull/1). Validación remota del código `5a065af`: [Actions 42911655754](https://github.com/HannDev2/gradient-lab/actions/runs/42911655754), job build `success`, incluidas instalación, pruebas unitarias, construcción y navegador/WebGL/accesibilidad. Deploy `skipped`; no se reemplazó Pages.
