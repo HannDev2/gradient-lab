@@ -1,8 +1,9 @@
-import { Component, lazy, Suspense, useState } from 'react';
+import { Component, lazy, Suspense, useId, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Example, Snapshot } from '../math/engine';
 import { ContourPlot } from './Plots';
 import { number } from './shared';
+import { SurfacePreview } from './SurfacePreview';
 
 const Scene = lazy(() => import('../scene/Landscape3D'));
 
@@ -22,21 +23,22 @@ class SceneBoundary extends Component<{ children: ReactNode; fallback: ReactNode
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
-export function Landscape({ example, history }: { example: Example; history: readonly Snapshot[] }) {
+export function Landscape({ example, history, hero = false, active = true }: { example: Example; history: readonly Snapshot[]; hero?: boolean; active?: boolean }) {
+  const titleId = useId();
   const [webgl, setWebgl] = useState(supportsWebGL);
-  const [dimension, setDimension] = useState<2 | 3>(3);
+  const [dimension, setDimension] = useState<2 | 3>(() => hero && window.matchMedia('(max-width: 640px)').matches ? 2 : 3);
   const [view, setView] = useState({ rotation: 0, zoom: 1, reset: 0 });
   const current = history[history.length - 1];
-  const fallback = <ContourPlot example={example} history={history}/>;
+  const fallback = hero ? <SurfacePreview snapshot={current} interactive={false}/> : <ContourPlot example={example} history={history}/>;
   const show3D = webgl && dimension === 3;
-  return <section className="landscape" aria-labelledby="landscape-title">
-    <div className="instrument-heading"><h2 id="landscape-title">El paisaje del error</h2><div className="segmented" aria-label="Dimensión del paisaje">
+  return <section className={`landscape ${hero ? 'hero-landscape' : ''}`} aria-labelledby={titleId}>
+    <div className="instrument-heading"><h2 id={titleId}>El paisaje del error</h2><div className="segmented" aria-label="Dimensión del paisaje">
       <button type="button" aria-label="Ver en 3D" aria-pressed={show3D} disabled={!webgl} onClick={() => setDimension(3)}>3D</button>
       <button type="button" aria-label="Ver en 2D" aria-pressed={!show3D} onClick={() => setDimension(2)}>2D</button>
     </div></div>
     <p className="landscape-constraint mono">Sección: w₃ fijo = <strong>{number(current.weights[2], 4)}</strong> · altura = L</p>
     <div className="landscape-stage">
-      {show3D ? <SceneBoundary fallback={fallback}><Suspense fallback={fallback}><Scene example={example} history={history} view={view} onFailure={() => setWebgl(false)}/></Suspense></SceneBoundary> : fallback}
+      {show3D && active ? <SceneBoundary fallback={fallback}><Suspense fallback={fallback}><Scene example={example} history={history} view={view} onFailure={() => setWebgl(false)}/></Suspense></SceneBoundary> : fallback}
       {show3D && <div className="camera-controls" aria-label="Controles de cámara">
         <button type="button" aria-label="Rotar cámara a la izquierda" onClick={() => setView(v => ({ ...v, rotation: v.rotation - 0.35 }))}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4L3 8l4 4M3 8h9a5 5 0 010 10"/></svg></button>
         <button type="button" aria-label="Rotar cámara a la derecha" onClick={() => setView(v => ({ ...v, rotation: v.rotation + 0.35 }))}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M13 4l4 4-4 4M17 8H8a5 5 0 000 10"/></svg></button>

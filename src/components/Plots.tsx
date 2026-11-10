@@ -20,18 +20,18 @@ export function PricePlot({ snapshot, revealed = true, compact = false }: { snap
 }
 
 export function Network({ snapshot, inputs, active = -1 }: { snapshot: Snapshot; inputs: readonly number[]; active?: number }) {
-  return <svg className="network" viewBox="0 0 650 380" role="img" aria-label={`Neurona lineal: las contribuciones ${snapshot.contributions.map(v => number(v)).join(', ')} se suman para producir ${number(snapshot.prediction)}.`}>
+  return <svg className="network" data-inspecting={active >= 0} viewBox="0 0 650 380" role="img" aria-label={`Neurona lineal: las contribuciones ${snapshot.contributions.map(v => number(v)).join(', ')} se suman para producir ${number(snapshot.prediction)}.`}>
     <text x="65" y="30" className="axis-text">ENTRADAS</text><text x="285" y="30" className="axis-text">PESOS</text><text x="515" y="30" className="axis-text">PREDICCIÓN</text>
     {inputs.map((value, i) => {
       const y = 90 + i * 105;
       return <g key={i} className={active === i ? 'connection active' : 'connection'}>
-        <path d={`M120 ${y} C280 ${y},330 195,470 195`} fill="none" stroke={active === i ? 'var(--green)' : 'var(--line-strong)'} strokeWidth={active === i ? 3 : 1.5}/>
-        <path className="signal" d={`M120 ${y} C280 ${y},330 195,470 195`} fill="none" stroke="var(--green)" strokeWidth="2"/>
+        <path d={`M120 ${y} H343 C405 ${y},415 195,460 195`} fill="none" stroke={active === i ? 'var(--green)' : 'var(--line-strong)'} strokeWidth={active === i ? 3 : 1.5}/>
+        <path className="signal" d={`M120 ${y} H343 C405 ${y},415 195,460 195`} fill="none" stroke="var(--green)" strokeWidth="2"/>
         <circle cx="85" cy={y} r="34" fill="var(--surface)" stroke={active === i ? 'var(--green)' : 'var(--line-strong)'}/>
         <text x="85" y={y + 7} textAnchor="middle" className="plot-value">{number(value, 0)}</text>
-        <rect x="240" y={y - 22} width="103" height="44" rx="4" fill="var(--bg)" stroke={active === i ? 'var(--green)' : 'var(--line)'}/>
-        <text x="291" y={y + 5} textAnchor="middle" className="axis-text">w{i + 1} {number(snapshot.weights[i], 4)}</text>
-        <text x="185" y={y + 26} className="axis-text cyan">{snapshot.contributions[i] < 0 ? '−' : '+'}{number(Math.abs(snapshot.contributions[i]), 2)}</text>
+        <rect className="weight-node" x="240" y={y - 22} width="103" height="44" rx="4" fill="var(--bg)" stroke={active === i ? 'var(--green)' : 'var(--line)'}/>
+        <text className="axis-text weight-node-value" x="291" y={y + 5} textAnchor="middle">w{i + 1} {number(snapshot.weights[i], 4)}</text>
+        <text x="354" y={y + (195 - y) * 0.25 + 20} className="axis-text contribution-label">{snapshot.contributions[i] < 0 ? '−' : '+'}{number(Math.abs(snapshot.contributions[i]), 2)}</text>
       </g>;
     })}
     <circle cx="500" cy="195" r="40" fill="var(--green)"/><text x="500" y="207" fontSize="39" fill="var(--bg)" textAnchor="middle">∑</text>
