@@ -84,7 +84,7 @@ Más capturas: [reto](visual-v2/after/reto.png), [circuito](visual-v2/after/meca
 
 ## Entrega y publicación
 
-PR: en preparación. El enlace y estado remoto se incorporarán al abrirla. El workflow omite despliegue en eventos `pull_request`; la v2 no reemplaza todavía Pages. Se comprobó que `main` remoto continúa en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`.
+PR abierta: [#1 — Gradient Lab 2.0](https://github.com/HannDev2/gradient-lab/pull/1), de `feature/visual-v2` hacia `main`. Código y evidencia visual guardados en `5a065af799b0daf6b13ec0c9774cf3c8379ccc1f`. Los resultados de pruebas anteriores corresponden a la verificación local; el resultado de Actions puede consultarse en la PR. El workflow omite despliegue en eventos `pull_request`; la v2 no reemplaza todavía Pages. Se comprobó que `main` remoto continúa en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`.
 
 ## Limitaciones y siguientes decisiones
 

@@ -7,7 +7,7 @@ Rama `feature/visual-v2`, basada en `main` (`3fbd1a9`). La versión pública se 
 - [x] A. Diagnóstico, medidas/capturas iniciales y portada narrativa completa; revisar móvil y escritorio.
 - [x] B. Refinar siete capítulos, diagramas y continuidad del movimiento.
 - [x] C. Refinar laboratorio, estados y escena; conservar todo el comportamiento.
-- [ ] D. Pruebas, comparación de rendimiento, capturas finales, informe y PR.
+- [x] D. Pruebas, comparación de rendimiento, capturas finales, informe y PR.
 - [x] Secundario: presentación académica sobre el recorrido, si las fases principales están resueltas.
 
 ## Diagnóstico de la versión 1
@@ -29,3 +29,7 @@ El núcleo matemático y el reducer no se modifican. La sección fija w₃ actua
 ## Evidencia
 
 Las capturas y métricas se guardan en `docs/visual-v2/before` y `after`. Las interacciones pasan 32 pruebas unitarias y 22 pruebas de navegador; build aprobado. Se inspeccionaron portada, capítulos, laboratorio y presentación en móvil y escritorio. El cierre remoto y los resultados comparativos se registran en ESTADO_ACTUAL.md.
+
+## Entrega
+
+PR abierta: [#1](https://github.com/HannDev2/gradient-lab/pull/1). [Informe final de trabajo, capturas y rendimiento](ESTADO_ACTUAL.md). Aprobación del usuario pendiente para fusionar y publicar.
