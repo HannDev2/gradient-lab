@@ -1,0 +1,148 @@
+                                                                                        Universidad Nacional Autónoma de México
+                                                                                                                   Facultad de Ingeniería
+                                                                                                              I N G E N I E R Í A E N C O M P U TA C I Ó N
+
+
+                                                                              Aprender del error:
+                                                                       El gradiente y la matriz jacobiana
+Cardoso Jaramillo Hanniel · Estrada Santos Angel Joseph                                                                                                                                                   Cálculo Vectorial · Grupo 13 · Semestre 2027-1
+
+
+TEORÍ A DE CÁLCULO VECTORI AL                                                         E J E M P LO E S T R E L L A · U N A I T E R A C I Ó N C O M P L E TA
+
+La teoría del aprendizaje                                                             Tapar, predecir, destapar…
+Un modelo produce una predicción ŷ. Sus pesos w                                       y corregir los pesos
+determinan la influencia de cada entrada. Al
+                                                                                      Imagina que tapas con una mano el último tramo de una gráfica de NVIDIA. El modelo recibe los tres primeros
+entrenarlo, se compara ŷ con un valor conocido y y
+                                                                                      precios y predice el cuarto; después quitas la mano y comparas. Usaremos precios hipotéticos, en USD: x =
+se ajustan los pesos para reducir una pérdida L,
+                                                                                      (100, 110, 120)T y un objetivo oculto y = 135.
+que cuantifica el error. [1]
+
+1. El gradiente orienta el ajuste                                                       USD                                                         1 Predecir sin ver el cuarto día
+Las derivadas parciales miden el cambio de L al                                         130
+                                                                                                                  120                             Partimos de w(0) = (0.3, 0.3, 0.3)T. Cada peso multiplica un precio; luego se
+variar un peso y fijar los demás. El gradiente las                                                      110                                       suman los aportes.
+reúne:                                                                                  110
+                                                                                              100
+                                                                                                                                                  ŷ = w₁x₁ + w₂x₂ + w₃x₃
+                  ∇ L = [ ∂w∂L , …, ∂w∂L ]
+                      w                     ₁                  p
+                                                                   T                    90
+
+                                                                                                1         2            3
+                                                                                                                                99
+                                                                                                                                  4
+                                                                                                                                        día
+                                                                                                                                                  ŷ₀ = 0.3(100) + 0.3(110) + 0.3(120)
+Apunta al mayor crecimiento local de L. Para                                               La mano oculta la respuesta.                           ŷ₀ = 30 + 33 + 36 = 99 USD
+                                                                                          Los días 1–3 son las entradas.                          Los pesos no tienen que sumar 1: el modelo no es un promedio.
+reducirla, se avanza en dirección opuesta:
+
+                   wnuevo = w − η                         ∇L   w                        USD                                135 real                 2 Destapar y medir el error
+                                                    −∇L
+                                                                                        130
+                                                                                                                                                  Revelamos el valor conocido. El error tiene signo; la pérdida cuadrática permite
+                                                                                                                                       36
+                                                                                        110
+                                                                                                                                                  medir su magnitud.
+                              curvas de nivel de una pérdida
+
+                                                                                        90                                  99 predicho           e₀ = ŷ₀ − y = 99 − 135 = −36 USD
+η es la tasa de aprendizaje: un paso excesivo
+puede aumentar L.
+                                                                                                1         2            3          4
+                                                                                                                                        día       L(w) = ½(ŷ − y)²
+                                                                                           Quitamos la mano: y = 135.
+2. La jacobiana mide sensibilidades                                                    La predicción quedó 36 USD abajo.                          L₀ = ½(−36)² = ½(1296) = 648 USD²
+Para f: ℝ → ℝ , con p pesos y m salidas, la
+            p        m
+
+jacobiana organiza las sensibilidades: una fila por                                                                                                 3 Calcular jacobiana y gradiente
+salida y una columna por peso:
+                                                                                                                                                  Con x fijo, ∂ŷ/∂wᵢ = xᵢ. La jacobiana es de 1 × 3:
+                                         ∂fᵢ                                                                    sensibilidades
+                          Jwf = [            ]                                                w₁       100
+                                                                                                                                                  Jwŷ = [100 110 120]
+                                         ∂wⱼ m × p
+                                                                                              w₂
+                                                                                                       110                                        Por la regla de la cadena, para cada i = 1, 2, 3:
+La entrada (i, j) mide el cambio de la salida i al                                                                 ŷ                   L
+                                                                                                                                                    ∂L                 ∂ŷ
+variar el peso j. Aquí se predice un solo precio: la                                                                                                   = ½ · 2(ŷ − y)     = (ŷ − y)xᵢ
+                                                                                              w₃       120
+                                                                                                                                                   ∂wᵢ                ∂wᵢ
+matriz será de 1 × 3. [2, 3]
+                                                                                                                                                  ∂L/∂w₁ = (−36)(100) = −3600
+                    ∇ L = (J f) ∇ L
+                                                                                                 el error vuelve a los pesos
+
+                                                     T                                      Del resultado a los pesos.
+                                                                                                                                                  ∂L/∂w₂ = (−36)(110) = −3960
+                          w                w                   ŷ                         Las derivadas reparten el ajuste.
+  La regla de la cadena une sensibilidades y error.                                                                                               ∂L/∂w₃ = (−36)(120) = −4320
+  Aplicarla hacia atrás entre capas calcula los
+  gradientes mediante retropropagación. [1–3]
+                                                                                                                                                  ∇ L = (−3600, −3960, −4320)
+                                                                                                                                                      w
+                                                                                                                                                                                                     T
+
+
+
+
+                                                                                        antes                              después
+                                                                                                                                                    4 Actualizar los tres pesos
+Aplicación en nuestra ingeniería                                                        w₁                                       .3360            Elegimos η = 0.00001. Todos los ajustes usan el mismo gradiente calculado en
+En Ingeniería en Computación se programan                                                                                                         w(0).
+modelos y derivadas automáticas para analizar
+imágenes, lenguaje y series temporales. Aquí
+                                                                                        w₂
+
+
+                                                                                        w₃
+                                                                                                                                 .3396
+
+
+                                                                                                                                 .3432
+                                                                                                                                                  w(1) = w(0) − η          ∇L  w
+usamos una neurona lineal sin sesgo para
+                                                                                                gris: 0.3000 · verde: incremento                  w₁(1) = 0.3 − 0.00001(−3600) = .3360
+desarrollar a mano una iteración de entrenamiento.
+                                                                                         Se resta un gradiente negativo:                          w₂(1) = 0.3 − 0.00001(−3960) = .3396
+                                                                                                                                                  w₃(1) = 0.3 − 0.00001(−4320) = .3432
+[1–3]                                                                                       los tres pesos aumentan.
+
+
+
+
+                                                                                        USD
+                                                                                                                                                    5 Comprobar cuánto mejoró
+                                                                                                                            135 real
+                                                                                        130                                                       ŷ₁ = .3360(100) + .3396(110) + .3432(120)
+                                                                                        110
+                                                                                                                            112.14                ŷ₁ = 33.600 + 37.356 + 41.184 = 112.14 USD
+                                                                                                                                                  e₁ = 112.14 − 135 = −22.86 USD
+   Conclusiones                                                                         90
+                                                                                                                                      99
+                                                                                                                                                  L₁ = ½(−22.86)² = 261.2898 USD²
+   La jacobiana relaciona pesos y predicción; el                                                1         2            3          4
+                                                                                                                                                                         648 − 261.2898
+   gradiente orienta su ajuste. La pérdida baja
+                                                                                                                                        día
+                                                                                                                                                  Reducción =                           × 100 = 59.68 %
+                                                                                         Verde: valor real · rojo: inicial                                                    648
+   59.68 % en este caso. Para evaluar la                                               Azul verdoso: predicción ajustada.
+   generalización se requieren datos que no se
+                                                                                                                                                    648 → 261.29 La respuesta aún no es exacta.
+                                                                                          Se evalúa el mismo caso de                                                                          La pérdida disminuye.
+   usaron para entrenar.                                                                        entrenamiento.
+
+
+
+BIBLIOGRAFÍA Y MESOGRAFÍA
+[1] Rumelhart, D. E., Hinton, G. E. y Williams, R. J. (1986). Learning representations by back-propagating errors. Nature,                    [2] Baydin, A. G. et al. (2018). Automatic Differentiation in Machine Learning: a Survey. JMLR, 18(153), 1–43.
+323, 533–536. doi:10.1038/323533a0.                                                                                                           jmlr.org/papers/v18/17-468.html.
+[3] PyTorch. Automatic Differentiation with torch.autograd. PyTorch Tutorials, documentación oficial.                                         Diagramas propios; escudos del boceto original; logotipo de NVIDIA, pautas oficiales de marca. Consulta: 08/11/2026.
+Caso didáctico: los precios fueron inventados para mostrar el procedimiento. El logotipo identifica la empresa del ejemplo; no implica afiliación ni patrocinio.
+
