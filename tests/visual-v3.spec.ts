@@ -1,6 +1,14 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('movimiento reducido elimina la animación de entrada de los controles', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('#/aprender/4');
+  await expect(page.locator('.chapter-visual')).toHaveCSS('animation-name', 'none');
+  await expect(page.locator('.chapter-visual')).toHaveCSS('opacity', '1');
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+});
+
 test('el foco de ruta respeta un control que el usuario ya seleccionó', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-10T18:00:00Z') });
   await page.clock.pauseAt(new Date('2026-11-10T18:00:01Z'));

@@ -44,14 +44,14 @@ Canvas a demanda, sin rotación constante ni postprocesado. Material emisivo, Fr
 
 - `npm test -- --reporter=dot`: **32/32 aprobadas**.
 - `npm run build`: **aprobado**, incluida comprobación TypeScript estricta.
-- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **40/40 aprobadas** sobre build estático local, escritorio 1440×1000 y móvil emulado 390×844.
-- Se conservan las 22 ejecuciones anteriores y se añaden 18: diez escenas, navegación, cálculos, reproducción/pausa/foco, salida con estado conservado, restauración, ascenso sincronizado, cifras exactas y paisaje visible hasta primer draw, ayudas de métricas y foco sin carreras de navegación. Axe sin infracciones en las vistas y reglas examinadas; no equivale a una auditoría manual completa.
+- `CI=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **42/42 aprobadas** sobre build estático local, escritorio 1440×1000 y móvil emulado 390×844.
+- Se conservan las 22 ejecuciones anteriores y se añaden 20: diez escenas, navegación, cálculos, reproducción/pausa/foco, salida con estado conservado, restauración, ascenso sincronizado, cifras exactas y paisaje visible hasta primer draw, ayudas de métricas, foco sin carreras de navegación y ausencia completa de animaciones en movimiento reducido. Axe sin infracciones en las vistas y reglas examinadas; no equivale a una auditoría manual completa.
 - Revisión independiente de código: se señalaron y corrigieron snapshot de ascenso y cifras intermedias inconsistentes. Revisión adicional del primer fotograma sin defectos importantes; la inspección visual la realizó el implementador.
 - `git diff --check` aprobado. Sin diferencias en `src/math`, `src/state`, `package.json` o lock respecto de v2. Cartel conservado, SHA-256 `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`.
 
 El detector manual Impeccable no encontró hallazgos activos. Space Grotesk se mantiene por la decisión documentada, con excepción puntual `overused-font=space grotesk`; se registró también en la raíz del workspace para el hook que informa rutas `gradient-lab/src/...`. No se desactivaron reglas completas ni archivos.
 
-Durante la validación se corrigieron etiquetas sobre el título, separación del acceso cinematográfico, el hueco previo al primer draw, repetición de paso al reanudar, sincronización de ascenso y lecturas numéricas. Las pruebas de primer fotograma y ayuda contextual fallaron antes de los arreglos y pasaron después. La suite también detectó que el RAF de navegación podía quitar el foco a un control recién seleccionado: se reprodujo con el reloj de navegador y se corrigió conservando el foco del usuario, sin perder saltos explícitos a referencias. Un primer intento con ocho navegadores saturó SwiftShader; con dos workers la suite completa pasa sin ampliar timeouts.
+Durante la validación se corrigieron etiquetas sobre el título, separación del acceso cinematográfico, el hueco previo al primer draw, repetición de paso al reanudar, sincronización de ascenso y lecturas numéricas. Las pruebas de primer fotograma y ayuda contextual fallaron antes de los arreglos y pasaron después. La suite también detectó que el RAF de navegación podía quitar el foco a un control recién seleccionado: se reprodujo con el reloj de navegador y se corrigió conservando el foco del usuario, sin perder saltos explícitos a referencias. Localmente, ocho navegadores saturaban SwiftShader y dos permitían completar la suite. La primera ejecución remota con dos workers dio 33/40 y siete fallos: tiempo de interacción y contraste durante revelaciones. Se corrigió reduced-motion con animation:none en lugar de una duración de 0.01 ms, se añadió una regresión que falló antes y pasó después, y CI pasó a servir el build estático con un solo worker. La suite local final da 42/42 con esa configuración, sin ampliar timeouts ni quitar aserciones. La revisión independiente de esta corrección no encontró riesgos importantes.
 
 ## Comparación visual y animaciones
 
@@ -67,24 +67,24 @@ Las carpetas [antes](visual-v3/before/) y [después](visual-v3/after/) contienen
 | Laboratorio divergente | [Antes](visual-v3/before/lab-Divergente-1440.png) | [Después](visual-v3/after/lab-Divergente-1440.png) |
 | Presentación | [Académica v2](visual-v3/before/presentation-1440.png) | [Cinematográfica v3](visual-v3/after/cinema-intro-1440.png) |
 
-Presentación: [jacobiana](visual-v3/after/cinema-jacobian-1440.png), [descenso](visual-v3/after/cinema-descent-1440.png), [entrenamiento real](visual-v3/after/cinema-live-1440.png), [conclusión](visual-v3/after/cinema-end-1440.png), [móvil](visual-v3/after/cinema-intro-390.png), [movimiento reducido](visual-v3/after/reduced-390.png), [ayuda contextual móvil](visual-v3/after/lab-help-390.png).
+Presentación: [jacobiana](visual-v3/after/cinema-jacobian-1440.png), [descenso](visual-v3/after/cinema-descent-1440.png), [entrenamiento real](visual-v3/after/cinema-live-1440.png), [conclusión](visual-v3/after/cinema-end-1440.png), [móvil](visual-v3/after/cinema-intro-390.png), [movimiento reducido](visual-v3/after/reduced-390.png), [ayuda contextual móvil](visual-v3/after/lab-help-390.png), [jacobiana sin animación](visual-v3/after/reduced-jacobian-390.png).
 
 **[Grabación WebM de la experiencia](visual-v3/after/video/presentation.webm)**: 23.04 s, 1440×1000, VP9 a 25 fotogramas/s de grabación, 9.18 MB. Captura real del navegador con entrada, una iteración, circuito, jacobiana, descenso, entrenamiento y conclusión. Se graba aparte de las medidas de cadencia para no añadir el coste del codificador al benchmark. Reproducción: descargar/abrir en un navegador compatible; no se carga al entrar en la aplicación.
 
 ## Rendimiento medido
 
-Builds de producción v2/v3, tamaños gzip en bytes:
+Builds de producción v2/v3, tamaños gzip en bytes (columna v3 actualizada tras la corrección de movimiento reducido):
 
 | Recurso | V2 | V3 | Diferencia |
 |---|---:|---:|---:|
-| JavaScript inicial | 91,468 B | 92,569 B | +1,101 B |
-| CSS inicial | 12,744 B | 18,075 B | +5,331 B |
-| Escena diferida | 250,297 B | 251,557 B | +1,260 B |
-| Presentación diferida nueva | — | 3,284 B | Solo al abrirla |
+| JavaScript inicial | 91,468 B | 92,568 B | +1,100 B |
+| CSS inicial | 12,744 B | 18,056 B | +5,312 B |
+| Escena diferida | 250,297 B | 251,556 B | +1,259 B |
+| Presentación diferida nueva | — | 3,283 B | Solo al abrirla |
 
-JS + CSS iniciales: **+6,432 B gzip (6.2 %)**. Recursos observados en portada: 161,244 → 167,676 B en teléfono y 411,841 → 419,533 B con 3D de escritorio/tableta. La escena sigue en un chunk separado; Vite mantiene el aviso por superar 500 kB sin comprimir.
+JS + CSS iniciales: **+6,412 B gzip (6.2 %)**. Recursos observados en portada: 161,244 → 167,676 B en teléfono y 411,841 → 419,533 B con 3D de escritorio/tableta. La escena sigue en un chunk separado; Vite mantiene el aviso por superar 500 kB sin comprimir.
 
-FCP local, una carga por anchura y fase:
+FCP local, una carga por anchura y fase. La muestra v3 corresponde al commit 6b5af76; los cambios visuales posteriores afectan únicamente a movimiento reducido:
 
 | Anchura | V2 | V3 |
 |---|---:|---:|
@@ -98,11 +98,11 @@ No se afirma una mejora de carga: cuatro muestras aumentan y la de 390 px dismin
 
 En 1440 px, intervalos rAF durante una muestra de entrada de 2.2 s: v2 mediana 16.7 ms, p95 16.7 ms, 1 intervalo >33.34 ms (130 muestras); v3 mediana 16.7 ms, p95 50 ms, 19 intervalos >33.34 ms (89 muestras). El coste de inicio es mayor en SwiftShader. Esto mide cadencia del navegador, **no FPS efectivos de GPU**. Tras estabilizar, hubo **0 llamadas de dibujo adicionales en 400 ms** en todas las anchuras; en teléfonos el hero permanece en SVG.
 
-Datos completos, renderer y nombres/hash de bundles: [v2](visual-v3/before/performance.json) y [v3](visual-v3/after/performance.json). La grabación está separada del muestreo de cadencia. No se convierten estos resultados en una promesa de rendimiento en hardware físico.
+Los tamaños actualizados están en finalBundles del JSON; bundles conserva los recursos exactos del muestreo original. Las capturas de movimiento reducido se actualizaron después de corregirlo, sin repetir la grabación de movimiento completo. Datos completos, renderer y nombres/hash de bundles: [v2](visual-v3/before/performance.json) y [v3](visual-v3/after/performance.json). La grabación está separada del muestreo de cadencia. No se convierten estos resultados en una promesa de rendimiento en hardware físico.
 
 ## Entrega y publicación
 
-PR abierta: **[#2 — Electric Observatory y presentación cinematográfica](https://github.com/HannDev2/gradient-lab/pull/2)**, de `feature/visual-v3` hacia `feature/visual-v2`. Código, pruebas y evidencia visual guardados en `6b5af76b516cbf97603e8285a156a66c36f21e38`; los commits siguientes completan enlaces/documentación. Los resultados de Actions se consultan en [las verificaciones de la PR](https://github.com/HannDev2/gradient-lab/pull/2/checks).
+PR abierta: **[#2 — Electric Observatory y presentación cinematográfica](https://github.com/HannDev2/gradient-lab/pull/2)**, de `feature/visual-v3` hacia `feature/visual-v2`. Código, pruebas y evidencia visual guardados en `6b5af76b516cbf97603e8285a156a66c36f21e38`; los commits siguientes completan enlaces y corrigen movimiento reducido/configuración de CI. Los resultados de Actions se consultan en [las verificaciones de la PR](https://github.com/HannDev2/gradient-lab/pull/2/checks).
 
 El workflow verifica instalación, motor/estado, tipos, build y navegador; el deploy queda omitido en PR. Se comprobó después de subir la rama: `main` sigue en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`, v2 en `a18e3b0cb81eaa4c682d68215079fe4efca991ae` y PR #1 continúa abierta sin fusionar. El HTML público conserva SHA-256 `abf4f1170e748a5f7972ca5470ab9c2108af42f2c67b17693946e387e57902c6`. Esta entrega no sustituye el sitio publicado.
 

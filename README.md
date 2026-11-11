@@ -24,7 +24,7 @@ El ejemplo reproduce 99 → 112.14 de predicción y 648 → 261.2898 de pérdida
 
 ## Tecnologías y verificación
 
-Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 32 pruebas del motor, estado y geometría. Playwright: 40 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Resultados y métricas en el informe. Build estático; sin backend ni API de IA. La v3 no añade dependencias.
+Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 32 pruebas del motor, estado y geometría. Playwright: 42 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Resultados y métricas en el informe. Build estático; sin backend ni API de IA. La v3 no añade dependencias.
 
 Skills empleadas: Ponytail para alcance, Impeccable como guía visual principal, Animate para movimiento explicativo, planificación/TDD/verificación y revisión independiente de código. Decisiones y límites se detallan en la documentación.
 

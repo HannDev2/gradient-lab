@@ -49,7 +49,7 @@ PR de entrega: [#1](https://github.com/HannDev2/gradient-lab/pull/1). Validació
 
 ## Electric Observatory v3 — comprobación local
 
-10 de noviembre de 2026 (México), `feature/visual-v3` basada en `a18e3b0` de v2. `npm test -- --reporter=dot`: **32/32**; `npm run build`: **aprobado**, incluye TypeScript; `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **40/40** sobre build estático con Vite preview. Se conservan 22 ejecuciones anteriores y se añaden 18, repartidas entre escritorio y móvil emulado.
+10 de noviembre de 2026 (México), `feature/visual-v3` basada en `a18e3b0` de v2. `npm test -- --reporter=dot`: **32/32**; `npm run build`: **aprobado**, incluye TypeScript; `CI=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **42/42** sobre build estático con Vite preview. Se conservan 22 ejecuciones anteriores y se añaden 20, repartidas entre escritorio y móvil emulado.
 
 La presentación completa verifica diez escenas, cálculo real compartido, salida con estado conservado, reproducción/pausa/foco, restauración, ascenso sincronizado y cifras exactas. También se comprueban ayuda contextual mediante teclado/toque/Escape y SVG hasta primer draw. La prueba con RAF detenido reprodujo la carrera de foco de navegación; tras el guard de foco pasa tanto esa regresión como el flujo previo de teclado. No se aumentaron timeouts ni se retiraron aserciones para lograrlo.
 
@@ -62,3 +62,5 @@ Capturas comparativas v2/v3, vídeo real WebM y métricas se guardan en `docs/vi
 La entrega v3 es una PR hacia `feature/visual-v2`; no es una publicación. El workflow admite esa base y omite preparación/empaquetado/deploy de Pages en PR. Se comprobó que `main` sigue en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`, v2 en `a18e3b0cb81eaa4c682d68215079fe4efca991ae` y PR #1 abierta sin fusionar. El HTML público conserva SHA-256 `abf4f1170e748a5f7972ca5470ab9c2108af42f2c67b17693946e387e57902c6`.
 
 Entrega v3: [PR #2 hacia feature/visual-v2](https://github.com/HannDev2/gradient-lab/pull/2), abierta y sin fusionar. [Verificaciones remotas de la PR](https://github.com/HannDev2/gradient-lab/pull/2/checks); los resultados locales anteriores corresponden al código `6b5af76b516cbf97603e8285a156a66c36f21e38`.
+
+Corrección tras Actions [42967585060](https://github.com/HannDev2/gradient-lab/actions/runs/42967585060): 33/40 y siete fallos de navegador, aunque motor/build pasaban. Se eliminó la animación global en reduced-motion (antes duraba 0.01 ms), con prueba roja/verde y capturas específicas; CI sirve ahora el build con un navegador. Resultado local final: 42/42, sin ampliar timeouts ni omitir contraste. Los tamaños finales se distinguen de las muestras de FCP/cadencia del commit 6b5af76 en performance.json; la corrección posterior solo afecta visualmente a movimiento reducido.
