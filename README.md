@@ -8,7 +8,7 @@ Una neurona lineal, siete capítulos interactivos y un laboratorio abierto permi
 
 [Abrir Gradient Lab](https://hanndev2.github.io/gradient-lab/) · [Repositorio público](https://github.com/HannDev2/gradient-lab)
 
-Esta rama contiene **Gradient Lab 3.0 — Electric Observatory**, con una presentación cinematográfica de todo el proyecto. Se entrega para revisión hacia `feature/visual-v2`; el enlace público conserva la v1. [Informe de trabajo y estado actual](docs/ESTADO_ACTUAL.md) · [Plan y comparación v3](docs/VISUAL_V3.md) · [Vídeo de la experiencia](docs/visual-v3/after/video/presentation.webm).
+Esta rama contiene **Gradient Lab 3.0 — Electric Observatory**, con una presentación cinematográfica de todo el proyecto. Se entrega para revisión hacia `feature/visual-v2`; el enlace público conserva la v1. [Informe de trabajo y estado actual](docs/ESTADO_ACTUAL.md) · [Plan y comparación v3](docs/VISUAL_V3.md) · [PR #2 hacia v2](https://github.com/HannDev2/gradient-lab/pull/2) · [Vídeo de la experiencia](docs/visual-v3/after/video/presentation.webm).
 
 ![Gradient Lab 3.0, Electric Observatory](docs/visual-v3/after/hero-1440.png)
 

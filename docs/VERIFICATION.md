@@ -60,3 +60,5 @@ Capturas comparativas v2/v3, vídeo real WebM y métricas se guardan en `docs/vi
 `src/math`, `src/state`, `package.json` y lock permanecen idénticos a v2. El SHA-256 del cartel sigue siendo `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`. `git diff --check` aprobado. Excepción puntual de Space Grotesk conservada por el diseño documentado, sin desactivar archivos ni reglas completas.
 
 La entrega v3 es una PR hacia `feature/visual-v2`; no es una publicación. El workflow admite esa base y omite preparación/empaquetado/deploy de Pages en PR. Se comprobó que `main` sigue en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`, v2 en `a18e3b0cb81eaa4c682d68215079fe4efca991ae` y PR #1 abierta sin fusionar. El HTML público conserva SHA-256 `abf4f1170e748a5f7972ca5470ab9c2108af42f2c67b17693946e387e57902c6`.
+
+Entrega v3: [PR #2 hacia feature/visual-v2](https://github.com/HannDev2/gradient-lab/pull/2), abierta y sin fusionar. [Verificaciones remotas de la PR](https://github.com/HannDev2/gradient-lab/pull/2/checks); los resultados locales anteriores corresponden al código `6b5af76b516cbf97603e8285a156a66c36f21e38`.

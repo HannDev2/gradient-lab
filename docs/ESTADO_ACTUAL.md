@@ -100,6 +100,12 @@ En 1440 px, intervalos rAF durante una muestra de entrada de 2.2 s: v2 mediana 1
 
 Datos completos, renderer y nombres/hash de bundles: [v2](visual-v3/before/performance.json) y [v3](visual-v3/after/performance.json). La grabación está separada del muestreo de cadencia. No se convierten estos resultados en una promesa de rendimiento en hardware físico.
 
+## Entrega y publicación
+
+PR abierta: **[#2 — Electric Observatory y presentación cinematográfica](https://github.com/HannDev2/gradient-lab/pull/2)**, de `feature/visual-v3` hacia `feature/visual-v2`. Código, pruebas y evidencia visual guardados en `6b5af76b516cbf97603e8285a156a66c36f21e38`; los commits siguientes completan enlaces/documentación. Los resultados de Actions se consultan en [las verificaciones de la PR](https://github.com/HannDev2/gradient-lab/pull/2/checks).
+
+El workflow verifica instalación, motor/estado, tipos, build y navegador; el deploy queda omitido en PR. Se comprobó después de subir la rama: `main` sigue en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`, v2 en `a18e3b0cb81eaa4c682d68215079fe4efca991ae` y PR #1 continúa abierta sin fusionar. El HTML público conserva SHA-256 `abf4f1170e748a5f7972ca5470ab9c2108af42f2c67b17693946e387e57902c6`. Esta entrega no sustituye el sitio publicado.
+
 ## Limitaciones conocidas
 
 Chromium usa SwiftShader en este entorno; incluso sin forzar ANGLE no se obtuvo GPU física. Los intervalos rAF no son FPS efectivos de GPU y no certifican 60 FPS en escritorio de gama media. La entrada presenta intervalos largos en renderizado software. No se probó en móviles físicos, Safari/Firefox, lector de pantalla ni redes móviles reales. La accesibilidad automatizada no cubre toda la experiencia asistiva. La licencia del trabajo original sigue pendiente y el ejemplo no demuestra generalización.

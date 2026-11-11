@@ -19,7 +19,7 @@ Guía principal: Impeccable; Animate complementa movimiento. El brief fija la nu
 - [x] C. Conexiones, jacobiana y descenso expresivos, nuevas transiciones de cifras y presentación completa.
 - [x] D. Control room, color según estabilidad real, trayectoria y marcador legibles; una escena a demanda.
 - [x] E. Unitarias, E2E existentes y nuevos, build; revisión independiente, inspección conjunta desktop/móvil y correcciones. Capturas inicio/3s/paso/transición/circuito/descenso/estable/divergente/presentación/reducido; vídeo WebM y métricas.
-- [ ] F. Informe, rama remota y PR hacia `feature/visual-v2`. Confirmar main/v2 y Pages intactos.
+- [x] F. Informe, rama remota y PR hacia `feature/visual-v2`. Confirmar main/v2 y Pages intactos.
 
 ## Evidencia que debe cerrar la entrega
 
@@ -42,3 +42,5 @@ Riesgos a observar: texto sobre geometría, glow que borre malla, movimiento fue
 | Rendimiento y entrega verificables | Gzip/FCP/cadencia/idle en los JSON de ambas fases; informe actual, pruebas completas, build y PR incremental. No se supone 60 FPS. |
 
 La entrega detallada, límites y resultados están en [ESTADO_ACTUAL.md](ESTADO_ACTUAL.md). El informe de v2 permanece en su rama y commit de base.
+
+Entrega: [PR #2 hacia v2](https://github.com/HannDev2/gradient-lab/pull/2). La publicación no forma parte de esta iteración.
