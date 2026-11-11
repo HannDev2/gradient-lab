@@ -46,3 +46,17 @@ Inspección con capturas comparativas a 360, 390, 768, 1440 y 1920 px. Sin overf
 Esta comprobación no es un despliegue de v2. La versión pública de `main` se conserva hasta aprobación de la PR. El registro anterior corresponde a la publicación v1 y no se reetiqueta como validación pública de v2.
 
 PR de entrega: [#1](https://github.com/HannDev2/gradient-lab/pull/1). Validación remota del código `5a065af`: [Actions 42911655754](https://github.com/HannDev2/gradient-lab/actions/runs/42911655754), job build `success`, incluidas instalación, pruebas unitarias, construcción y navegador/WebGL/accesibilidad. Deploy `skipped`; no se reemplazó Pages.
+
+## Electric Observatory v3 — comprobación local
+
+10 de noviembre de 2026 (México), `feature/visual-v3` basada en `a18e3b0` de v2. `npm test -- --reporter=dot`: **32/32**; `npm run build`: **aprobado**, incluye TypeScript; `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **40/40** sobre build estático con Vite preview. Se conservan 22 ejecuciones anteriores y se añaden 18, repartidas entre escritorio y móvil emulado.
+
+La presentación completa verifica diez escenas, cálculo real compartido, salida con estado conservado, reproducción/pausa/foco, restauración, ascenso sincronizado y cifras exactas. También se comprueban ayuda contextual mediante teclado/toque/Escape y SVG hasta primer draw. La prueba con RAF detenido reprodujo la carrera de foco de navegación; tras el guard de foco pasa tanto esa regresión como el flujo previo de teclado. No se aumentaron timeouts ni se retiraron aserciones para lograrlo.
+
+Axe conserva cero infracciones en las vistas y reglas examinadas. La revisión independiente señaló y confirmó arreglos de snapshot y cifras; las revisiones adicionales de primer fotograma, ayudas y foco no encontraron defectos importantes. Revisión estática y pruebas automatizadas no sustituyen las inspecciones visuales de escritorio/móvil realizadas por el implementador.
+
+Capturas comparativas v2/v3, vídeo real WebM y métricas se guardan en `docs/visual-v3/`. Cinco anchuras: 360/390/768/1440/1920 px. Datos y límites de interpretación en [informe actual](ESTADO_ACTUAL.md). Chromium usa SwiftShader; no se certifican FPS en GPU física. La grabación se realiza separada de la medida de cadencia.
+
+`src/math`, `src/state`, `package.json` y lock permanecen idénticos a v2. El SHA-256 del cartel sigue siendo `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`. `git diff --check` aprobado. Excepción puntual de Space Grotesk conservada por el diseño documentado, sin desactivar archivos ni reglas completas.
+
+La entrega v3 es una PR hacia `feature/visual-v2`; no es una publicación. El workflow admite esa base y omite preparación/empaquetado/deploy de Pages en PR. Se comprobó que `main` sigue en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`, v2 en `a18e3b0cb81eaa4c682d68215079fe4efca991ae` y PR #1 abierta sin fusionar. El HTML público conserva SHA-256 `abf4f1170e748a5f7972ca5470ab9c2108af42f2c67b17693946e387e57902c6`.

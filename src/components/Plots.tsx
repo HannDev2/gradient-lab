@@ -34,7 +34,7 @@ export function Network({ snapshot, inputs, active = -1 }: { snapshot: Snapshot;
         <text x="354" y={y + (195 - y) * 0.25 + 20} className="axis-text contribution-label">{snapshot.contributions[i] < 0 ? '−' : '+'}{number(Math.abs(snapshot.contributions[i]), 2)}</text>
       </g>;
     })}
-    <circle cx="500" cy="195" r="40" fill="var(--green)"/><text x="500" y="207" fontSize="39" fill="var(--bg)" textAnchor="middle">∑</text>
+    <circle className="sum-node" key={snapshot.prediction} cx="500" cy="195" r="40" fill="var(--green)"/><text x="500" y="207" fontSize="39" fill="var(--bg)" textAnchor="middle">∑</text>
     <path d="M540 195h72" stroke="var(--green)" strokeWidth="2"/>
     <text x="575" y="165" className="axis-text">ŷ</text><text x="575" y="238" textAnchor="middle" className="network-result">{number(snapshot.prediction)}</text>
   </svg>;

@@ -4,6 +4,8 @@ import { existsSync } from 'node:fs';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: false,
+  // WebGL uses a software renderer in CI; avoid saturating it with eight browsers.
+  workers: 2,
   retries: process.env.CI ? 1 : 0,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {

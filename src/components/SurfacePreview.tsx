@@ -33,7 +33,7 @@ export function SurfacePreview({ snapshot, interactive = true }: { snapshot?: Sn
       <g className="preview-mesh">{lines.map((line, i) => <polyline key={i} points={line} stroke={`url(#${inkId})`} strokeWidth={i % 5 === 0 ? 1.15 : 0.65} opacity={i % 5 === 0 ? 0.8 : 0.42} fill="none"/>)}</g>
       <path d="M66 365L410 445 640 305M66 365V86" fill="none" stroke="var(--line-strong)"/>
       <text x="47" y="72" className="axis-text">L</text><text x="423" y="460" className="axis-text">w₁</text><text x="650" y="310" className="axis-text">w₂</text>
-      <circle cx={marker[0]} cy={marker[1]} r="6" fill="var(--green)" stroke="var(--bg)" strokeWidth="2"/>
+      <circle className="preview-point" cx={marker[0]} cy={marker[1]} r="7" fill="var(--green)" stroke="var(--bg)" strokeWidth="2"/>
       <path d={`M${marker[0] + 10} ${marker[1] - 8}l32 -42h110`} fill="none" stroke="var(--green)" opacity="0.7"/>
       <text x={marker[0] + 50} y={marker[1] - 62} className="axis-text green">L = {number(current.loss, 2)}</text>
       <text x="500" y="60" className="axis-text">L = ½(w · x − y)²</text>

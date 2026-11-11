@@ -1,95 +1,105 @@
-# Informe de trabajo y estado actual — Gradient Lab 2.0
+# Informe de trabajo y estado actual — Gradient Lab 3.0
 
-Actualizado el 10 de noviembre de 2026. Rama `feature/visual-v2`, basada en `main` (`3fbd1a9`). La versión estable pública se conserva y la v2 se entrega para revisión mediante PR; no se fusiona ni se publica sin aprobación expresa.
+Actualizado el 10 de noviembre de 2026 (México). **Electric Observatory — The Living Error** vive en `feature/visual-v3`, basada en `feature/visual-v2` (`a18e3b0`). La entrega es incremental hacia v2. No se fusiona PR #1, no se modifica `main` y no se publica la v3.
 
-## Resultado
+## Resultado e inicio local
 
-Se implementaron las cuatro áreas visuales prioritarias: portada narrativa, recorrido de siete capítulos, laboratorio y escena matemática. También se incorporó el modo presentación sobre el recorrido existente. Se reutiliza la aplicación y no se añadieron dependencias ni se modificaron `src/math` o `src/state`.
+La portada, el recorrido y el laboratorio se transformaron en un observatorio luminoso: superficie matemática dominante, negro profundo, verde ionizado, cian y coral/ámbar según estabilidad. La entrada coreografiada dura 2.6 segundos y mantiene las acciones disponibles. La nueva presentación expone **todo el proyecto en diez escenas**; el modo académico anterior sigue disponible.
 
-La v1 continúa en https://hanndev2.github.io/gradient-lab/ y su entrega histórica figura en [VERIFICATION.md](VERIFICATION.md). El repositorio es https://github.com/HannDev2/gradient-lab. El estado local probado de v2 es independiente del despliegue estable.
+Desde la carpeta del repositorio:
 
-## Trabajo realizado
+```sh
+npm ci
+npm run dev
+```
 
-| Área | Implementación |
+Portada: `http://127.0.0.1:5173/gradient-lab/`. Presentación: `http://127.0.0.1:5173/gradient-lab/#/presentacion`. Acceso visible: «Ver el proyecto en escena». Flechas para escenas, reproducción opcional, Espacio para pausar, Escape para salir, selector, restauración y pantalla completa opcional. Al entrar no avanza sola. Salir conserva el entrenamiento; restaurar lo reinicia explícitamente.
+
+El sitio público [Gradient Lab](https://hanndev2.github.io/gradient-lab/) conserva la v1. El [informe de v2](https://github.com/HannDev2/gradient-lab/blob/a18e3b0cb81eaa4c682d68215079fe4efca991ae/docs/ESTADO_ACTUAL.md) se conserva en su commit y rama, junto con [la PR #1](https://github.com/HannDev2/gradient-lab/pull/1).
+
+## Cambios implementados
+
+| Área | Resultado |
 |---|---|
-| Portada | Cinco momentos con composición propia: hero 3D, datos y objetivo oculto, circuito de aprendizaje, dirección del gradiente e invitación instrumental. Atmósfera de coordenadas y luz, tipografía monumental y revelaciones ligadas a visibilidad. |
-| Recorrido | Conexiones que atraviesan los pesos, selección con aporte destacado, sensibilidad bajo cada columna de la jacobiana, regla de la cadena alineada y barras de actualización simultánea. Se conservan los siete capítulos y su contenido. |
-| Laboratorio | Mediciones y leyendas mayores, controles agrupados, selección directa de cuatro regímenes, factor q y gráfico de errores reales con signo. Se conservan paso, lote, reproducción, pausa, edición, validación e historial. |
-| Escena | Iluminación, material rugoso, malla y suelo de referencia, marcador con anillo y proyección vertical. La trayectoria tiene prioridad de dibujo para no quedar tapada por la superficie. |
-| Presentación | Ampliación de los mismos diagramas; flechas izquierda/derecha, Escape, restauración y acceso a comparación antes/después. Sin sistema de diapositivas duplicado. |
+| Hero | Título monumental, campo 3D más grande, cámara de aproximación breve, color ligado a pérdida real, malla luminosa, contorno que se dibuja, halo del marcador y trayectoria iluminada. Las etiquetas de rangos quedan separadas del título. SVG permanece hasta el primer fotograma WebGL para evitar un campo vacío. |
+| Atmósfera | Campos de luz, retícula de medición en perspectiva, profundidad en capas, reacción al cursor y barrido lento. Intensidades distintas según sección; pausa fuera de vista y con pestaña oculta. Sin partículas aleatorias. |
+| Recorrido | Energía en conexiones de aportes, respuesta del nodo de suma, fuentes de cada entrada de la jacobiana, barras simultáneas de pesos y distinción entre ascenso y descenso. Se conservan las siete interacciones educativas. |
+| Laboratorio | Métricas mayores, aparición suave de cifras exactas, controles activos, líneas más visibles y ayudas contextuales de predicción/pérdida/error con teclado, toque y cierre con Escape; estado crítico con luz coral/ámbar procedente de la estabilidad calculada. Se conservan edición, presets, paso, lote, reproducción, validación e historial. |
+| Cierre | Sección matemática SVG real sobre un campo oscuro luminoso, con la interacción y transferencia de pesos existentes. Sustituye el verde plano de v2. |
+| Presentación | Introducción, siete capítulos, entrenamiento compartido en vivo y conclusión con créditos, cartel y fuentes. Avance opcional de 16 s por escena, operaciones automáticas reales, pausa por foco/visibilidad e interacción manual. Scroll nativo y consola persistente en móvil. |
 
-Interacciones nuevas: observar/restaurar una iteración desde el hero; revelar el objetivo; explorar cuatro operaciones; comparar ascenso y descenso; probar w₁ y transferirlo al laboratorio; cargar entrenamiento oscilatorio; activar presentación académica.
+`Cinema.tsx` y `electric.css` son los módulos principales nuevos. `App` carga la presentación bajo demanda; `ChapterExperiment`, contenido y visualizaciones se reutilizan. `Landscape3D` amplía materiales y geometría visual; `LiveNumber` anima la aparición del resultado exacto. `scripts/visual-v3-audit.mjs` guarda comparación y grabación; `tests/visual-v3.spec.ts` aporta regresiones. El workflow incorpora PR hacia v2 y mantiene deploy omitido en PR.
 
-## Componentes y tecnología
+Stack conservado: React 19, TypeScript estricto, Vite, Three.js/React Three Fiber, SVG, CSS y fuentes locales. **Ninguna dependencia añadida; motor y reducer intactos.** Impeccable guía el diseño, Animate la coreografía, Ponytail el alcance y las skills de verificación/revisión aportan comprobaciones. FFmpeg se usó como herramienta de grabación, sin formar parte de la aplicación.
 
-- Nuevos: `Home.tsx`, `Atmosphere.tsx` y `visual-v2.css`.
-- Extendidos: `App`, `Walkthrough`, `Laboratory`, `Landscape`, `SurfacePreview`, `Network` en `Plots` y `Landscape3D`.
-- Geometría: `makeLandscape` interpola pesos y evalúa alturas sobre la sección actual; prueba de regresión añadida en `geometry.test.ts`.
-- Evidencia reproducible: `scripts/visual-audit.mjs` y `tests/visual-v2.spec.ts`.
-- Stack conservado: React 19, TypeScript estricto, Vite, SVG, Three.js/React Three Fiber, CSS y fuentes locales. Impeccable es la guía visual principal; Animate complementa movimiento, Ponytail limita complejidad, y se usaron verificación y revisión independiente.
+## Rigor y degradación
 
-## Rigor, rendimiento y acceso
+Los vértices no se deforman para producir efectos. La altura y el color corresponden a la pérdida real de la sección con w₃ actual. El tubo luminoso sigue los centros de la aproximación poligonal existente, evaluada en ocho subsegmentos por actualización; su grosor es una marca visual. La flecha permanece normalizada en el plano de pesos. La proyección histórica está etiquetada y las gráficas temporales conservan pérdidas originales.
 
-El marcador y los vértices intermedios vuelven a evaluar L con w₃ actual. La línea visible es una aproximación poligonal de ocho subsegmentos por actualización, no una nueva trayectoria de entrenamiento. La etiqueta de historial proyectado y la explicación se conservan; las gráficas temporales mantienen las pérdidas originales. No se deforma el valle ni se modifica el gradiente para obtener un efecto visual.
+Un mismo snapshot controla pesos y paisaje en ascenso/descenso, incluida reproducción automática. Las cifras visibles no interpolan valores ficticios: la transición de aparición conserva siempre L=e²/2. La escena de entrenamiento usa el reducer de `App`; no hay otro simulador.
 
-Un único Canvas se renderiza a demanda. El hero lo desmonta fuera de vista y al ocultar la pestaña; la atmósfera se pausa. En teléfonos el hero empieza en SVG, con 3D opcional. Movimiento reducido suprime barridos/desplazamientos y aplica inmediatamente cámara y marcador. Se conservan foco, teclado, rutas hash, alternativa 2D y manejo de pérdida de contexto.
+Canvas a demanda, sin rotación constante ni postprocesado. Material emisivo, Fresnel aditivo ligero y una textura local de halo sustituyen bloom pesado. Hero SVG por defecto en teléfonos, 3D opcional y alternativa 2D ante fallo/context loss. DPR limitado a 1 en móvil/movimiento reducido y 1.5 en escritorio. Movimiento reducido elimina desplazamientos, pausa ambiente y aplica cámara/marcador inmediatamente.
 
-Tamaños gzip medidos sobre builds de producción:
-
-| Recurso | Antes | Después | Diferencia |
-|---|---:|---:|---:|
-| JavaScript inicial | 87,391 B | 91,468 B | +4,077 B (4.7 %) |
-| CSS inicial | 8,035 B | 12,744 B | +4,709 B (58.6 %) |
-| Escena diferida | 249,780 B | 250,297 B | +517 B (0.2 %) |
-
-JS + CSS iniciales aumentan unos 8.8 kB gzip, aproximadamente 9.2 %. En escritorio la portada ahora carga además la escena 3D diferida (~250 kB), que antes se descargaba al entrar al laboratorio. En teléfonos esa descarga requiere activar 3D. El aviso de Vite por chunk mayor de 500 kB sin comprimir permanece; el módulo continúa separado.
-
-Muestras de FCP en Chromium local, una carga por anchura y fase:
-
-| Anchura | FCP antes | FCP después | Overflow de portada |
-|---|---:|---:|---|
-| 360 px | 608 ms | 1040 ms | No |
-| 390 px | 164 ms | 288 ms | No |
-| 768 px | 180 ms | 376 ms | No |
-| 1440 px | 228 ms | 368 ms | No |
-| 1920 px | 200 ms | 392 ms | No |
-
-No se afirma una mejora de velocidad: estas muestras aumentan y no constituyen un benchmark estadístico ni una prueba en red móvil. Transferencia de recursos de portada: 152,458 B antes; 161,244 B después en teléfonos y 411,841 B en escritorio/tableta con 3D. El script incluye una espera de 1.2 s para observación/captura; `observedLoadMs` no es un tiempo hasta interacción. Datos completos: [antes](visual-v2/before/performance.json) y [después](visual-v2/after/performance.json).
-
-## Verificación y problemas corregidos
+## Verificación local
 
 - `npm test -- --reporter=dot`: **32/32 aprobadas**.
-- `npm run build`: **aprobado**, incluye TypeScript estricto.
-- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **22/22 aprobadas** sobre build servido con Vite preview, en escritorio 1440×1000 y móvil emulado 390×844.
-- Se conservan las 14 comprobaciones anteriores y se añaden ocho ejecuciones de nuevas interacciones, presentación, oscilación, liberación de WebGL fuera de vista y movimiento reducido. Axe conserva cero infracciones en las vistas y reglas examinadas; no equivale a auditoría manual completa.
-- Revisión independiente de código sin hallazgos críticos o importantes. No sustituye la inspección visual realizada por el implementador.
-- `git diff --check` aprobado; sin diferencias en motor/reducer. SHA-256 del cartel original conservado: `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`.
+- `npm run build`: **aprobado**, incluida comprobación TypeScript estricta.
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173/gradient-lab/ npm run test:e2e`: **40/40 aprobadas** sobre build estático local, escritorio 1440×1000 y móvil emulado 390×844.
+- Se conservan las 22 ejecuciones anteriores y se añaden 18: diez escenas, navegación, cálculos, reproducción/pausa/foco, salida con estado conservado, restauración, ascenso sincronizado, cifras exactas y paisaje visible hasta primer draw, ayudas de métricas y foco sin carreras de navegación. Axe sin infracciones en las vistas y reglas examinadas; no equivale a una auditoría manual completa.
+- Revisión independiente de código: se señalaron y corrigieron snapshot de ascenso y cifras intermedias inconsistentes. Revisión adicional del primer fotograma sin defectos importantes; la inspección visual la realizó el implementador.
+- `git diff --check` aprobado. Sin diferencias en `src/math`, `src/state`, `package.json` o lock respecto de v2. Cartel conservado, SHA-256 `c5422466e098211bc5a4f9e3b54ac9cca15e45d841ad1ee15819a76bc979cad7`.
 
-Durante el desarrollo se corrigieron un `className` duplicado que impedía compilar, la interpolación que no satisfacía la nueva prueba geométrica, el nombre accesible del botón Derivar, un identificador SVG repetido, el semestre partido en móvil y la prioridad de dibujo de la trayectoria. Se repitieron pruebas secuencialmente después de una colisión de archivos temporales provocada por dos procesos Playwright simultáneos; ese fallo de ejecución no se presenta como fallo del producto.
+El detector manual Impeccable no encontró hallazgos activos. Space Grotesk se mantiene por la decisión documentada, con excepción puntual `overused-font=space grotesk`; se registró también en la raíz del workspace para el hook que informa rutas `gradient-lab/src/...`. No se desactivaron reglas completas ni archivos.
 
-Detector Impeccable: cero hallazgos activos en `src`. Se conserva Space Grotesk mediante la excepción puntual `overused-font` por la identidad existente documentada; no se desactivaron archivos ni reglas completas. No quedan hallazgos deterministas sin resolver en el alcance revisado.
+Durante la validación se corrigieron etiquetas sobre el título, separación del acceso cinematográfico, el hueco previo al primer draw, repetición de paso al reanudar, sincronización de ascenso y lecturas numéricas. Las pruebas de primer fotograma y ayuda contextual fallaron antes de los arreglos y pasaron después. La suite también detectó que el RAF de navegación podía quitar el foco a un control recién seleccionado: se reprodujo con el reloj de navegador y se corrigió conservando el foco del usuario, sin perder saltos explícitos a referencias. Un primer intento con ocho navegadores saturó SwiftShader; con dos workers la suite completa pasa sin ampliar timeouts.
 
-## Capturas comparativas
+## Comparación visual y animaciones
 
-Se guardaron portada y hero a 360, 390, 768, 1440 y 1920 px. Los capítulos 2, 4 y 5, los estados lento/estable/divergente y la alternativa 2D se compararon a 390 y 1440 px. Se añadieron capturas de oscilación y presentación; las cuatro secciones narrativas posteriores al hero tienen capturas individuales. Se inspeccionaron composición, etiquetas, móvil, geometría y estados.
+Las carpetas [antes](visual-v3/before/) y [después](visual-v3/after/) contienen capturas reales de builds v2/v3. Se capturó inicio, después de tres segundos y portada completa a 360/390/768/1440/1920 px; paso, circuito, dirección, laboratorio estable/divergente y presentación a 390/1440 px, además de movimiento reducido. No hay overflow de portada en esas cinco anchuras ni errores de consola durante el recorrido de captura.
 
-| Vista | Antes | Después |
+| Vista | V2 | V3 |
 |---|---|---|
-| Hero escritorio | [v1](visual-v2/before/hero-1440.png) | [v2](visual-v2/after/hero-1440.png) |
-| Portada completa móvil | [v1](visual-v2/before/home-390.png) | [v2](visual-v2/after/home-390.png) |
-| Jacobiana | [v1](visual-v2/before/chapter-4-1440.png) | [v2](visual-v2/after/chapter-4-1440.png) |
-| Laboratorio estable | [v1](visual-v2/before/lab-stable-1440.png) | [v2](visual-v2/after/lab-stable-1440.png) |
+| Hero escritorio | [Antes](visual-v3/before/hero-1440.png) | [Después](visual-v3/after/hero-1440.png) |
+| Hero ancho | [Antes](visual-v3/before/hero-1920.png) | [Después](visual-v3/after/hero-1920.png) |
+| Portada móvil | [Antes](visual-v3/before/home-390.png) | [Después](visual-v3/after/home-390.png) |
+| Circuito activo | [Antes](visual-v3/before/circuit-1440.png) | [Después](visual-v3/after/circuit-1440.png) |
+| Laboratorio estable | [Antes](visual-v3/before/lab-Estable-1440.png) | [Después](visual-v3/after/lab-Estable-1440.png) |
+| Laboratorio divergente | [Antes](visual-v3/before/lab-Divergente-1440.png) | [Después](visual-v3/after/lab-Divergente-1440.png) |
+| Presentación | [Académica v2](visual-v3/before/presentation-1440.png) | [Cinematográfica v3](visual-v3/after/cinema-intro-1440.png) |
 
-Más capturas: [reto](visual-v2/after/reto.png), [circuito](visual-v2/after/mecanismo.png), [dirección](visual-v2/after/direccion.png), [tu turno](visual-v2/after/tu-turno.png), [oscilación](visual-v2/after/lab-oscillating-1440.png), [presentación](visual-v2/after/presentation-1440.png), [2D móvil](visual-v2/after/lab-2d-390.png).
+Presentación: [jacobiana](visual-v3/after/cinema-jacobian-1440.png), [descenso](visual-v3/after/cinema-descent-1440.png), [entrenamiento real](visual-v3/after/cinema-live-1440.png), [conclusión](visual-v3/after/cinema-end-1440.png), [móvil](visual-v3/after/cinema-intro-390.png), [movimiento reducido](visual-v3/after/reduced-390.png), [ayuda contextual móvil](visual-v3/after/lab-help-390.png).
 
-## Entrega y publicación
+**[Grabación WebM de la experiencia](visual-v3/after/video/presentation.webm)**: 23.04 s, 1440×1000, VP9 a 25 fotogramas/s de grabación, 9.18 MB. Captura real del navegador con entrada, una iteración, circuito, jacobiana, descenso, entrenamiento y conclusión. Se graba aparte de las medidas de cadencia para no añadir el coste del codificador al benchmark. Reproducción: descargar/abrir en un navegador compatible; no se carga al entrar en la aplicación.
 
-PR abierta: [#1 — Gradient Lab 2.0](https://github.com/HannDev2/gradient-lab/pull/1), de `feature/visual-v2` hacia `main`. Código y evidencia visual guardados en `5a065af799b0daf6b13ec0c9774cf3c8379ccc1f`. Los resultados de pruebas anteriores corresponden a la verificación local; el resultado de Actions puede consultarse en la PR. El workflow omite despliegue en eventos `pull_request`; la v2 no reemplaza todavía Pages. Se comprobó que `main` remoto continúa en `3fbd1a954f5a84842b9eceda7102e2d80c87d104`.
+## Rendimiento medido
 
-Validación remota del código: [Actions 42911655754](https://github.com/HannDev2/gradient-lab/actions/runs/42911655754), build `success`. Instalación, pruebas unitarias, tipos, construcción y pruebas de experiencia/WebGL/accesibilidad aprobadas. Preparación de Pages, empaquetado y deploy omitidos como corresponde a la PR. Los commits posteriores de entrega actualizan documentación.
+Builds de producción v2/v3, tamaños gzip en bytes:
 
-## Limitaciones y siguientes decisiones
+| Recurso | V2 | V3 | Diferencia |
+|---|---:|---:|---:|
+| JavaScript inicial | 91,468 B | 92,569 B | +1,101 B |
+| CSS inicial | 12,744 B | 18,075 B | +5,331 B |
+| Escena diferida | 250,297 B | 251,557 B | +1,260 B |
+| Presentación diferida nueva | — | 3,284 B | Solo al abrirla |
 
-No se probó en móviles físicos, Safari/Firefox, lectores de pantalla ni GPU física; WebGL se comprueba con Chromium/SwiftShader. No se certifican FPS en hardware modesto ni métricas de campo. La mejora visual conserva un coste adicional de descarga en escritorio. El caso sigue siendo una observación didáctica y no demuestra generalización. Créditos, bibliografía, cartel y decisión de licencia pendiente se conservan.
+JS + CSS iniciales: **+6,432 B gzip (6.2 %)**. Recursos observados en portada: 161,244 → 167,676 B en teléfono y 411,841 → 419,533 B con 3D de escritorio/tableta. La escena sigue en un chunk separado; Vite mantiene el aviso por superar 500 kB sin comprimir.
 
-La siguiente decisión del usuario es revisar la PR y aprobar, si procede, su fusión y publicación. No es necesario rehacer la aplicación ni reinstalar dependencias para revisar esta entrega.
+FCP local, una carga por anchura y fase:
+
+| Anchura | V2 | V3 |
+|---|---:|---:|
+| 360 px | 1064 ms | 1164 ms |
+| 390 px | 292 ms | 220 ms |
+| 768 px | 372 ms | 472 ms |
+| 1440 px | 408 ms | 672 ms |
+| 1920 px | 500 ms | 652 ms |
+
+No se afirma una mejora de carga: cuatro muestras aumentan y la de 390 px disminuye. Son muestras locales, sin red móvil ni distribución estadística. Recursos de fuentes están incluidos según lo solicitado por el navegador; el PDF no se descarga al entrar.
+
+En 1440 px, intervalos rAF durante una muestra de entrada de 2.2 s: v2 mediana 16.7 ms, p95 16.7 ms, 1 intervalo >33.34 ms (130 muestras); v3 mediana 16.7 ms, p95 50 ms, 19 intervalos >33.34 ms (89 muestras). El coste de inicio es mayor en SwiftShader. Esto mide cadencia del navegador, **no FPS efectivos de GPU**. Tras estabilizar, hubo **0 llamadas de dibujo adicionales en 400 ms** en todas las anchuras; en teléfonos el hero permanece en SVG.
+
+Datos completos, renderer y nombres/hash de bundles: [v2](visual-v3/before/performance.json) y [v3](visual-v3/after/performance.json). La grabación está separada del muestreo de cadencia. No se convierten estos resultados en una promesa de rendimiento en hardware físico.
+
+## Limitaciones conocidas
+
+Chromium usa SwiftShader en este entorno; incluso sin forzar ANGLE no se obtuvo GPU física. Los intervalos rAF no son FPS efectivos de GPU y no certifican 60 FPS en escritorio de gama media. La entrada presenta intervalos largos en renderizado software. No se probó en móviles físicos, Safari/Firefox, lector de pantalla ni redes móviles reales. La accesibilidad automatizada no cubre toda la experiencia asistiva. La licencia del trabajo original sigue pendiente y el ejemplo no demuestra generalización.
