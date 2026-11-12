@@ -46,7 +46,7 @@ La cadencia rAF **no mide FPS efectivos de GPU**. La entrada mejora en estas mue
 
 Datos íntegros: [antes](visual-v3/rc/before/performance.json) y [después](visual-v3/rc/after/performance.json). El JSON aclara el ajuste posterior de posición de la clave de ejes, que no cambia materiales/DPR. Tamaños finales gzip se adjuntan al JSON de después. El chunk Three.js conserva el aviso de Vite por superar 500 kB sin comprimir y sigue diferido.
 
-Recursos finales gzip, mismo método local (nivel 6): JS inicial 92,568 → 92,774 B; CSS 18,056 → 18,122 B; escena diferida 251,556 → 251,698 B; Cinema diferido 3,283 → 3,974 B. El aumento inicial de esta pasada es **272 B gzip (0.25 %)**. Los nombres y tamaños completos están en `finalBundles` del JSON.
+Recursos finales gzip, mismo método local (nivel 6): JS inicial 92,568 → 92,774 B; CSS 18,056 → 18,122 B; escena diferida 251,556 → 251,698 B; Cinema diferido 3,283 → 4,023 B. El aumento inicial de esta pasada es **272 B gzip (0.25 %)**. Los nombres y tamaños completos están en `finalBundles` del JSON.
 
 ## Evidencia visual
 
@@ -75,3 +75,5 @@ Validación manual preparada para el expositor:
 5. Pendiente de la validación humana: equipo de exposición con GPU física, móvil físico y navegador objetivo. No se garantiza ausencia absoluta de errores ni 60 FPS a partir de pruebas automatizadas.
 
 El formulario y la animación de cifras fueron verificados sin modificar el motor. Space Grotesk mantiene su excepción intencional ya documentada; no se añadieron supresiones ni se ejecutaron auditorías globales repetidas.
+
+Aclaración final: en una demo divergente, la introducción indica «Caso del cartel · η = 0.00001» junto al gráfico estable y anuncia η=0.00008 para el contraste de la escena 9. La regresión falló antes de aclararlo y pasó en ambas pantallas después (2/2); [captura de la introducción divergente](visual-v3/rc/after/demo-intro-390.png). No se modifican operaciones ni guion.

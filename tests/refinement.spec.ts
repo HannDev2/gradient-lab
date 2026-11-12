@@ -87,6 +87,7 @@ test('la demo divergente muestra el crecimiento real y una conclusión identific
   await page.goto('#/presentacion');
   await page.clock.install();
   await page.getByRole('button', { name: 'Iniciar demostración divergente' }).click();
+  await expect(page.getByTestId('demo-parameters')).toContainText('Caso del cartel · η = 0.00001');
   await page.getByRole('button', { name: 'Escena 9: Entrenamiento en vivo' }).click();
   await expect(page.getByTestId('demo-mode')).toContainText('divergente');
   await expect(page.getByTestId('demo-parameters')).toContainText('0.00008');
