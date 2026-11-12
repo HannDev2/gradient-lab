@@ -1,0 +1,142 @@
+{
+  "phase": "after",
+  "date": "2026-11-12T04:57:32.051Z",
+  "measurements": [
+    {
+      "width": 768,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        404,
+        460
+      ],
+      "fcpMs": 248,
+      "frames": {
+        "samples": 270,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 16.799999999999955,
+        "over33ms": 8
+      },
+      "longTasksMs": [
+        68,
+        256
+      ],
+      "draws": 1455,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        888,
+        630
+      ],
+      "fcpMs": 204,
+      "frames": {
+        "samples": 253,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.399999999999864,
+        "over33ms": 14
+      },
+      "longTasksMs": [
+        56,
+        234
+      ],
+      "draws": 1185,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        888,
+        630
+      ],
+      "fcpMs": 192,
+      "frames": {
+        "samples": 251,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.399999999999864,
+        "over33ms": 13
+      },
+      "longTasksMs": [
+        244
+      ],
+      "draws": 1125,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        888,
+        630
+      ],
+      "fcpMs": 224,
+      "frames": {
+        "samples": 251,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.399999999999864,
+        "over33ms": 13
+      },
+      "longTasksMs": [
+        245
+      ],
+      "draws": 1170,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1920,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        1195,
+        662
+      ],
+      "fcpMs": 232,
+      "frames": {
+        "samples": 218,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.40000000000009,
+        "over33ms": 25
+      },
+      "longTasksMs": [
+        256
+      ],
+      "draws": 885,
+      "overflow": false,
+      "idleDraws": 0
+    }
+  ],
+  "scope": "Chromium; renderer explícito; 5 s de entrada a DPR de dispositivo 2. Cadencia rAF, no FPS de GPU. Tres cargas 1440 y una por cada otro ancho; no es benchmark de hardware físico. Medición antes del ajuste final de posición de la clave de ejes en tablet; ese ajuste y la espera de captura de la entrada de Cinema no modifican renderer, DPR ni animaciones.",
+  "finalBundles": [
+    {
+      "file": "Cinema-BI61kfsn.js",
+      "bytes": 11694,
+      "gzipBytes": 4023
+    },
+    {
+      "file": "Landscape3D-db4Nh3TJ.js",
+      "bytes": 926455,
+      "gzipBytes": 251698
+    },
+    {
+      "file": "index-BTEzw6iM.css",
+      "bytes": 91759,
+      "gzipBytes": 18122
+    },
+    {
+      "file": "index-aDYFfl99.js",
+      "bytes": 298494,
+      "gzipBytes": 92774
+    }
+  ],
+  "finalCaptureNote": "La confirmación posterior corrige la posición de la clave, de la etiqueta L y de los controles de cámara en hero estrecho; conserva la geometría, DPR y materiales de las medidas. Capturas Cinema esperan el fin de la entrada. La aclaración final distingue la tasa del cartel ilustrado en la introducción de la tasa divergente usada en la escena 9; se recapturaron las vistas afectadas."
+}
