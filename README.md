@@ -16,7 +16,7 @@ Esta rama contiene **Gradient Lab 3.0 — Electric Observatory**, con una presen
 
 El recorrido permite destapar el objetivo, inspeccionar contribuciones, construir la jacobiana, comprobar la regla de la cadena y aplicar un ajuste simultáneo. En el laboratorio se pueden editar pesos, tasa y datos, ejecutar pasos o lotes y reproducir el entrenamiento con pausa.
 
-La portada abre con una secuencia de 2.6 segundos, una superficie emisiva y retículas espaciales. «Ver el proyecto en escena» inicia diez escenas: introducción, siete capítulos, entrenamiento real y conclusiones con créditos. Flechas para navegar, reproducción opcional, Espacio para pausar, Escape para salir y pantalla completa opcional. El modo académico anterior sigue disponible.
+La portada abre con una secuencia de 2.6 segundos, una superficie emisiva y retículas espaciales. «Ver el proyecto en escena» inicia diez escenas: introducción, siete capítulos, entrenamiento real y conclusiones con créditos. Flechas para navegar, reproducción opcional, Espacio para pausar, Escape para salir y pantalla completa opcional. El modo académico anterior sigue disponible. La candidata añade «Demostrar el cartel» y «Demostrar divergencia», con parámetros originales en una demostración temporal que conserva tu laboratorio; las ayudas reservan espacio y los pesos muestran el valor completo al editar. [Medidas, capturas y validación manual de la candidata](docs/VISUAL_V3_RC.md).
 
 Gráficas, historial, jacobiana, gradiente y escena 3D comparten un solo estado. La superficie es una sección real de la pérdida con w₃ fijo; el historial sobre ella se etiqueta como proyección. Hay curvas de nivel 2D cuando no hay WebGL, controles de cámara por teclado y soporte para movimiento reducido.
 
@@ -24,7 +24,7 @@ El ejemplo reproduce 99 → 112.14 de predicción y 648 → 261.2898 de pérdida
 
 ## Tecnologías y verificación
 
-Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 32 pruebas del motor, estado y geometría. Playwright: 42 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Resultados y métricas en el informe. Build estático; sin backend ni API de IA. La v3 no añade dependencias.
+Vite, React, TypeScript estricto, Three.js y React Three Fiber, SVG, CSS propio y fuentes locales. Vitest: 33 pruebas del motor, estado y geometría. Playwright: 54 comprobaciones en escritorio y móvil emulado, incluida accesibilidad automatizada con Axe. Resultados y métricas en el informe. Build estático; sin backend ni API de IA. La v3 no añade dependencias.
 
 Skills empleadas: Ponytail para alcance, Impeccable como guía visual principal, Animate para movimiento explicativo, planificación/TDD/verificación y revisión independiente de código. Decisiones y límites se detallan en la documentación.
 

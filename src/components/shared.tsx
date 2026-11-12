@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 
 export function number(value: number, digits = 2): string {
-  if (Math.abs(value) >= 1e6 || (value !== 0 && Math.abs(value) < 1e-5)) return value.toExponential(2);
+  if (Math.abs(value) >= 1e6 || (value !== 0 && Math.abs(value) < 10 ** -digits)) return value.toExponential(2);
   return value.toFixed(digits);
 }
 
@@ -30,25 +30,27 @@ export function Formula({ children, label }: { children: ReactNode; label?: stri
   return <div className="formula" aria-label={label}>{children}</div>;
 }
 
-export function NumericField({ label, value, onCommit, min, max, step = 'any', compact = false }: {
-  label: string; value: number; onCommit: (value: number) => void; min?: number; max?: number; step?: number | 'any'; compact?: boolean;
+export function NumericField({ label, value, onCommit, min, max, step = 'any', compact = false, digits }: {
+  label: string; value: number; onCommit: (value: number) => void; min?: number; max?: number; step?: number | 'any'; compact?: boolean; digits?: number;
 }) {
-  const displayValue = String(Number(value.toPrecision(12)));
-  const [draft, setDraft] = useState(displayValue);
+  const displayValue = digits === undefined ? String(Number(value.toPrecision(12))) : String(Number(number(value, digits)));
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(String(value));
   const [error, setError] = useState('');
-  useEffect(() => { setDraft(displayValue); setError(''); }, [displayValue]);
+  useEffect(() => { setDraft(String(value)); setError(''); }, [value]);
   function commit() {
     const next = Number(draft);
     const invalid = draft.trim() === '' || !Number.isFinite(next);
     const message = invalid ? 'Escribe un número finito.' : min !== undefined && next < min ? `Debe ser mayor o igual a ${min}.` : max !== undefined && next > max ? `Debe ser menor o igual a ${max}.` : '';
     setError(message);
-    if (!message && draft !== displayValue && next !== value) onCommit(next);
+    if (!message) { if (next !== value) onCommit(next); setEditing(false); }
   }
   return <label className={`numeric-field ${compact ? 'compact' : ''}`}>
     <span className={compact ? 'sr-only' : ''}>{label}</span>
-    <input type="number" aria-label={label} aria-invalid={!!error} value={draft} min={min} max={max} step={step}
+    <input type="number" aria-label={label} aria-invalid={!!error} value={editing ? draft : displayValue} min={min} max={max} step={step}
+      onFocus={() => { setEditing(true); setDraft(String(value)); }}
       onChange={event => { setDraft(event.target.value); setError(''); }} onBlur={commit}
-      onKeyDown={event => { if (event.key === 'Enter') event.currentTarget.blur(); if (event.key === 'Escape') { setDraft(displayValue); setError(''); } }} />
+      onKeyDown={event => { if (event.key === 'Enter') event.currentTarget.blur(); if (event.key === 'Escape') { setDraft(String(value)); setError(''); } }} />
     {error && <span role="alert" className="field-error">{error}</span>}
   </label>;
 }

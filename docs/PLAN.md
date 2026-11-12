@@ -35,3 +35,5 @@ Permisos efectivos comprobados: escritura, red, servidor local y GitHub CLI aute
 ## Iteración posterior
 
 La evolución visual v2 se conserva en `feature/visual-v2` y PR #1. Su alcance y evidencia se registran en [VISUAL_V2.md](VISUAL_V2.md). Electric Observatory se desarrolla sobre ella en `feature/visual-v3`, con [contrato y comprobaciones v3](VISUAL_V3.md) e [informe actual](ESTADO_ACTUAL.md). La v1 pública permanece como referencia estable; el encargo v3 prohíbe fusionar o publicar todavía.
+
+La candidata de exposición pule la misma rama y PR #2, sin versión mayor ni publicación. Alcance, precisión, demostraciones, comparación de coste y aceptación manual: [VISUAL_V3_RC.md](VISUAL_V3_RC.md).

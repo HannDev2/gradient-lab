@@ -2,6 +2,10 @@
 
 Actualizado el 11 de noviembre de 2026 (México). **Electric Observatory — The Living Error** vive en `feature/visual-v3`, basada en `feature/visual-v2` (`a18e3b0`). La entrega es incremental hacia v2. No se fusiona PR #1, no se modifica `main` y no se publica la v3.
 
+## Candidata refinada para exposición
+
+Esta rama incorpora la pasada final solicitada: precisión contextual sin redondear el estado, ayudas en una fila sin superposiciones, demos explícitas del cartel y divergente que conservan el laboratorio, hero ajustado en tablet y resolución interna adaptada al renderizado software. [Informe de la candidata, medidas, capturas y guion de validación manual](VISUAL_V3_RC.md). Los apartados siguientes conservan el historial y la evidencia de la entrega v3 anterior; los resultados actuales de la candidata están en ese informe. Sin fusión ni publicación.
+
 ## Resultado e inicio local
 
 La portada, el recorrido y el laboratorio se transformaron en un observatorio luminoso: superficie matemática dominante, negro profundo, verde ionizado, cian y coral/ámbar según estabilidad. La entrada coreografiada dura 2.6 segundos y mantiene las acciones disponibles. La nueva presentación expone **todo el proyecto en diez escenas**; el modo académico anterior sigue disponible.

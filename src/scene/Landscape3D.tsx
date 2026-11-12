@@ -26,12 +26,18 @@ function ContextGuard({ onFailure, onReady }: { onFailure: () => void; onReady: 
   return null;
 }
 
-function Camera({ view }: { view: CameraView }) {
-  const { camera, gl, invalidate } = useThree();
+function Camera({ view, hero }: { view: CameraView; hero: boolean }) {
+  const { camera, gl, invalidate, size } = useThree();
   const controls = useRef<OrbitControls | null>(null);
   const destination = useRef<THREE.Vector3 | null>(null);
   const firstMove = useRef(true);
   const speed = useRef(10);
+  useEffect(() => {
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.fov = hero ? size.width / size.height < 1.1 ? 48 : 38 : 42;
+      camera.updateProjectionMatrix(); invalidate();
+    }
+  }, [camera, hero, size.width, size.height, invalidate]);
   useEffect(() => {
     const orbit = new OrbitControls(camera, gl.domElement);
     orbit.target.set(0, 0.9, 0);
@@ -76,7 +82,7 @@ function Label({ text, position, color = '#a8b5aa' }: { text: string; position: 
 }
 
 function Surface({ data, current, example, reset, hero }: { data: ReturnType<typeof makeLandscape>; current: Snapshot; example: Example; reset: boolean; hero: boolean }) {
-  const { invalidate } = useThree();
+  const { invalidate, size } = useThree();
   const critical = ['divergent', 'boundary'].includes(stability(example.inputs, example.eta).kind);
   const energy = critical ? '#ff8661' : '#57f5dc';
   const geometry = useMemo(() => {
@@ -204,7 +210,7 @@ function Surface({ data, current, example, reset, hero }: { data: ReturnType<typ
       <mesh rotation={[-Math.PI / 2, 0, 0]}><torusGeometry args={[0.21, 0.012, 8, 40]}/><meshBasicMaterial color="#e3ffbd" depthTest={false}/></mesh>
     </group>
     {gradientArrow && <primitive object={gradientArrow}/>}
-    <Label text="w₁" position={[3.6, 0, 3]}/><Label text="w₂" position={[-3.2, 0, -3.6]}/><Label text="L · USD²" position={[-3, hero ? 4.8 : 4, 3]}/>
+    <Label text="w₁" position={[3.6, 0, 3]}/><Label text="w₂" position={[-3.2, 0, -3.6]}/><Label text="L · USD²" position={hero && size.width / size.height < 1.1 ? [-3, 4, 2] : [-3, hero ? 4.8 : 4, 3]}/>
     {!hero && <><Label text={number(data.bounds.min1, 2)} position={[-2.4, -0.45, 3.2]}/><Label text={number(data.bounds.max1, 2)} position={[3, -0.3, 3.2]}/>
     <Label text={number(data.bounds.max2, 2)} position={[-3.6, -0.2, 2.2]}/><Label text={number(data.bounds.min2, 2)} position={[-3.3, -0.3, -3]}/>
     <Label text={number(data.maxLoss, 0)} position={[-3, 3.4, 3]}/><Label text="0" position={[-3.4, 0.35, 3.3]}/></>}
@@ -214,9 +220,13 @@ function Surface({ data, current, example, reset, hero }: { data: ReturnType<typ
 export default function Landscape3D({ example, history, view, hero = false, onFailure }: { example: Example; history: readonly Snapshot[]; view: CameraView; hero?: boolean; onFailure: () => void }) {
   const data = useMemo(() => makeLandscape(example, history), [example, history]);
   const [ready, setReady] = useState(false);
+  const [software, setSoftware] = useState(false);
   return <div className="canvas-container" data-testid="landscape-3d" role="img" aria-label="Superficie interactiva de pérdida. Arrastra para rotar o utiliza los botones de cámara. Los ejes son peso uno, peso dos y pérdida en USD al cuadrado.">
-    <Canvas frameloop="demand" dpr={[1, window.matchMedia('(max-width: 640px), (prefers-reduced-motion: reduce)').matches ? 1 : 1.5]} camera={{ position: hero ? [10, 8, 11] : [8, 6, 8], fov: hero ? 38 : 42 }} gl={{ antialias: true, alpha: true }}>
-      <ContextGuard onFailure={onFailure} onReady={() => setReady(true)}/><Camera view={view}/><Surface data={data} current={history[history.length - 1]} example={example} reset={history.length === 1} hero={hero}/>
+    <Canvas frameloop="demand" dpr={[1, software || window.matchMedia('(max-width: 640px), (prefers-reduced-motion: reduce)').matches ? 1 : 1.5]} camera={{ position: hero ? [10, 8, 11] : [8, 6, 8], fov: hero ? 38 : 42 }} gl={{ antialias: true, alpha: true }} onCreated={({ gl }) => {
+      const context = gl.getContext(); const info = context.getExtension('WEBGL_debug_renderer_info');
+      if (info) setSoftware(/swiftshader|llvmpipe|software/i.test(context.getParameter(info.UNMASKED_RENDERER_WEBGL)));
+    }}>
+      <ContextGuard onFailure={onFailure} onReady={() => setReady(true)}/><Camera view={view} hero={hero}/><Surface data={data} current={history[history.length - 1]} example={example} reset={history.length === 1} hero={hero}/>
     </Canvas>
     {hero && !ready && <div className="scene-placeholder" aria-hidden="true"><SurfacePreview snapshot={history[history.length - 1]} interactive={false}/></div>}
     <div className="coordinate-key mono"><span>w₁: {number(data.bounds.min1, 3)} a {number(data.bounds.max1, 3)}</span><span>w₂: {number(data.bounds.min2, 3)} a {number(data.bounds.max2, 3)}</span><span>L: 0 a {number(data.maxLoss, 2)} USD²</span></div>
