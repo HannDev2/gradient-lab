@@ -6,6 +6,9 @@ export default defineConfig({
   fullyParallel: false,
   // A software WebGL browser already consumes the CI runner's CPU budget.
   workers: process.env.CI ? 1 : 2,
+  // CI traces show software-GPU startup and screenshots taking 7–18 seconds.
+  timeout: process.env.CI ? 60_000 : 30_000,
+  expect: { timeout: process.env.CI ? 15_000 : 5_000 },
   retries: process.env.CI ? 1 : 0,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
