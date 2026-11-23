@@ -59,7 +59,18 @@ export function makeLandscape(example: Example, history: readonly Snapshot[]) {
       grid.push(...positions.slice((j * (size + 1) + i) * 3, (j * (size + 1) + i) * 3 + 3), ...positions.slice(((j + 1) * (size + 1) + i) * 3, ((j + 1) * (size + 1) + i) * 3 + 3));
     }
   }
-  const path = projectHistory(example, history, fixedW3).map(p => position(p.w1, p.loss, p.w2));
+  const projected = projectHistory(example, history, fixedW3);
+  const path = projected.flatMap((point, i) => {
+    if (i === 0) return [position(point.w1, point.loss, point.w2)];
+    const previous = projected[i - 1];
+    // Interpolate weights, then evaluate height on the current section.
+    return Array.from({ length: 8 }, (_, j) => {
+      const t = (j + 1) / 8;
+      const x = previous.w1 + (point.w1 - previous.w1) * t;
+      const y = previous.w2 + (point.w2 - previous.w2) * t;
+      return position(x, sectionLoss(example, x, y, fixedW3), y);
+    });
+  });
   const marker = position(w1, current.loss, w2);
   return { samples, positions, indices, grid, path, marker, maxLoss, fixedW3, bounds, span };
 }

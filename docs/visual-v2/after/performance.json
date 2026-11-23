@@ -1,0 +1,59 @@
+{
+  "phase": "after",
+  "base": "http://127.0.0.1:4173/gradient-lab/",
+  "date": "2026-11-10T21:58:00.702Z",
+  "measurements": [
+    {
+      "width": 360,
+      "fcp": 1040,
+      "transferBytes": 161244,
+      "overflow": false,
+      "observedLoadMs": 1691
+    },
+    {
+      "width": 390,
+      "fcp": 288,
+      "transferBytes": 161244,
+      "overflow": false,
+      "observedLoadMs": 1410
+    },
+    {
+      "width": 768,
+      "fcp": 376,
+      "transferBytes": 411841,
+      "overflow": false,
+      "observedLoadMs": 1397
+    },
+    {
+      "width": 1440,
+      "fcp": 368,
+      "transferBytes": 411841,
+      "overflow": false,
+      "observedLoadMs": 1365
+    },
+    {
+      "width": 1920,
+      "fcp": 392,
+      "transferBytes": 411841,
+      "overflow": false,
+      "observedLoadMs": 1373
+    }
+  ],
+  "bundles": [
+    {
+      "file": "Landscape3D-DVnkDUM8.js",
+      "bytes": 922439,
+      "gzipBytes": 250297
+    },
+    {
+      "file": "index-B21cXd0l.css",
+      "bytes": 64064,
+      "gzipBytes": 12744
+    },
+    {
+      "file": "index-CdXETaVa.js",
+      "bytes": 293909,
+      "gzipBytes": 91468
+    }
+  ]
+}

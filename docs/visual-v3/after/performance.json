@@ -1,0 +1,104 @@
+{
+  "phase": "after",
+  "date": "2026-11-11T05:39:48.267Z",
+  "measurements": [
+    {
+      "width": 360,
+      "fcp": 1164,
+      "transferBytes": 167676,
+      "overflow": false,
+      "cadence": null,
+      "renderer": "SVG",
+      "idleDrawCalls": 0
+    },
+    {
+      "width": 390,
+      "fcp": 220,
+      "transferBytes": 167676,
+      "overflow": false,
+      "cadence": null,
+      "renderer": "SVG",
+      "idleDrawCalls": 0
+    },
+    {
+      "width": 768,
+      "fcp": 472,
+      "transferBytes": 419533,
+      "overflow": false,
+      "cadence": null,
+      "renderer": "No consultado",
+      "idleDrawCalls": 0
+    },
+    {
+      "width": 1440,
+      "fcp": 672,
+      "transferBytes": 419533,
+      "overflow": false,
+      "cadence": {
+        "samples": 89,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "over33ms": 19
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "idleDrawCalls": 0
+    },
+    {
+      "width": 1920,
+      "fcp": 652,
+      "transferBytes": 419533,
+      "overflow": false,
+      "cadence": null,
+      "renderer": "No consultado",
+      "idleDrawCalls": 0
+    }
+  ],
+  "bundles": [
+    {
+      "file": "Cinema-1b3cmKRO.js",
+      "bytes": 9510,
+      "gzipBytes": 3284
+    },
+    {
+      "file": "Landscape3D-DMF3K5VG.js",
+      "bytes": 926043,
+      "gzipBytes": 251557
+    },
+    {
+      "file": "index-BU-uNz5D.js",
+      "bytes": 297817,
+      "gzipBytes": 92569
+    },
+    {
+      "file": "index-GJK-ZPAv.css",
+      "bytes": 91172,
+      "gzipBytes": 18075
+    }
+  ],
+  "cadenceMeaning": "Intervalos de requestAnimationFrame; no mide FPS efectivos de GPU. Renderer software, no extrapolar a hardware físico.",
+  "measuredRevision": "6b5af76b516cbf97603e8285a156a66c36f21e38",
+  "finalBundles": [
+    {
+      "file": "Cinema-WnFY9NzW.js",
+      "bytes": 9510,
+      "gzipBytes": 3283
+    },
+    {
+      "file": "Landscape3D-CVmcW3zp.js",
+      "bytes": 926043,
+      "gzipBytes": 251556
+    },
+    {
+      "file": "index-BJdmyIsx.js",
+      "bytes": 297817,
+      "gzipBytes": 92568
+    },
+    {
+      "file": "index-DT4pUum8.css",
+      "bytes": 91114,
+      "gzipBytes": 18056
+    }
+  ],
+  "finalBundlesMeasuredAt": "2026-11-11T05:57:10.598Z",
+  "finalBundlesNote": "Tamaños del build después de corregir reduced-motion. FCP/cadencia y vídeo corresponden a measuredRevision; la corrección visual posterior solo afecta a prefers-reduced-motion y se recapturó por separado."
+}

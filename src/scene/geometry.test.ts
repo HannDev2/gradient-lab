@@ -39,3 +39,14 @@ it('cada segmento de nivel intersecta el dominio y conserva su pérdida', () => 
     }
   }
 });
+
+it('los vértices intermedios de la trayectoria visible se evalúan sobre la parábola', () => {
+  const history = train(DEFAULT_EXAMPLE, DEFAULT_EXAMPLE.weights, 2);
+  const data = makeLandscape(DEFAULT_EXAMPLE, history);
+  expect(data.path.length).toBeGreaterThan(history.length);
+  for (const [u, height, v] of data.path) {
+    const w1 = (data.bounds.min1 + data.bounds.max1) / 2 + u * data.span / 3;
+    const w2 = (data.bounds.min2 + data.bounds.max2) / 2 + v * data.span / 3;
+    expect(height * data.maxLoss / 3.4).toBeCloseTo(sectionLoss(DEFAULT_EXAMPLE, w1, w2, data.fixedW3), 8);
+  }
+});
