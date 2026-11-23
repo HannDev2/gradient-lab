@@ -37,3 +37,13 @@ Permisos efectivos comprobados: escritura, red, servidor local y GitHub CLI aute
 La evolución visual v2 se conserva en `feature/visual-v2` y PR #1. Su alcance y evidencia se registran en [VISUAL_V2.md](VISUAL_V2.md). Electric Observatory se desarrolla sobre ella en `feature/visual-v3`, con [contrato y comprobaciones v3](VISUAL_V3.md) e [informe actual](ESTADO_ACTUAL.md). La v1 pública permanece como referencia estable; el encargo v3 prohíbe fusionar o publicar todavía.
 
 La candidata de exposición pule la misma rama y PR #2, sin versión mayor ni publicación. Alcance, precisión, demostraciones, comparación de coste y aceptación manual: [VISUAL_V3_RC.md](VISUAL_V3_RC.md).
+
+## Publicación de V3 — 23 de noviembre de 2026
+
+- [x] Confirmar V3 remota (`2caf17b`), árbol de trabajo limpio y verificaciones previas.
+- [x] Repetir las 33 pruebas unitarias, TypeScript y build local.
+- [x] Fusionar PR #2 en V2 y PR #1 en `main`, conservando el historial.
+- [x] Confirmar Actions de `main`, build/deploy aprobados y 54/54 pruebas contra la URL pública (4.1 min). Evidencia en [VERIFICATION.md](VERIFICATION.md).
+- [x] Rediseñar el README con identidad Electric Observatory, introducción accesible, tres SVG propios, grabación real y créditos de ambos autores; verificar imágenes/enlaces y cuatro vistas de lectura.
+
+La solicitud actual de los autores autoriza fusionar y publicar V3; sustituye las restricciones históricas de las entregas anteriores.

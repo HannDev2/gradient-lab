@@ -1,10 +1,10 @@
 # Informe de trabajo y estado actual — Gradient Lab 3.0
 
-Actualizado el 11 de noviembre de 2026 (México). **Electric Observatory — The Living Error** vive en `feature/visual-v3`, basada en `feature/visual-v2` (`a18e3b0`). La entrega es incremental hacia v2. No se fusiona PR #1, no se modifica `main` y no se publica la v3.
+Actualizado el 23 de noviembre de 2026 (México). **Electric Observatory — The Living Error** está integrada en `main` mediante las PR #2 y #1, fusionadas por solicitud de los autores. Código de publicación: `4bf9baf759e0c70b3d7cb7e052fce26f07728d96`. El estado del despliegue y su verificación pública se registran en [VERIFICATION.md](VERIFICATION.md).
 
 ## Candidata refinada para exposición
 
-Esta rama incorpora la pasada final solicitada: precisión contextual sin redondear el estado, ayudas en una fila sin superposiciones, demos explícitas del cartel y divergente que conservan el laboratorio, hero ajustado en tablet y resolución interna adaptada al renderizado software. [Informe de la candidata, medidas, capturas y guion de validación manual](VISUAL_V3_RC.md). Los apartados siguientes conservan el historial y la evidencia de la entrega v3 anterior; los resultados actuales de la candidata están en ese informe. Sin fusión ni publicación.
+Esta rama incorpora la pasada final solicitada: precisión contextual sin redondear el estado, ayudas en una fila sin superposiciones, demos explícitas del cartel y divergente que conservan el laboratorio, hero ajustado en tablet y resolución interna adaptada al renderizado software. [Informe de la candidata, medidas, capturas y guion de validación manual](VISUAL_V3_RC.md). Los apartados siguientes conservan el historial y la evidencia de la entrega v3 anterior; los resultados de la candidata están en ese informe. Las restricciones anteriores de fusión/publicación quedan sustituidas por la solicitud de publicar del 23 de noviembre.
 
 ## Resultado e inicio local
 
@@ -19,7 +19,7 @@ npm run dev
 
 Portada: `http://127.0.0.1:5173/gradient-lab/`. Presentación: `http://127.0.0.1:5173/gradient-lab/#/presentacion`. Acceso visible: «Ver el proyecto en escena». Flechas para escenas, reproducción opcional, Espacio para pausar, Escape para salir, selector, restauración y pantalla completa opcional. Al entrar no avanza sola. Salir conserva el entrenamiento; restaurar lo reinicia explícitamente.
 
-El sitio público [Gradient Lab](https://hanndev2.github.io/gradient-lab/) conserva la v1. El [informe de v2](https://github.com/HannDev2/gradient-lab/blob/a18e3b0cb81eaa4c682d68215079fe4efca991ae/docs/ESTADO_ACTUAL.md) se conserva en su commit y rama, junto con [la PR #1](https://github.com/HannDev2/gradient-lab/pull/1).
+El sitio público es [Gradient Lab](https://hanndev2.github.io/gradient-lab/); la evidencia de publicación de V3 se recoge en [VERIFICATION.md](VERIFICATION.md). El [informe de v2](https://github.com/HannDev2/gradient-lab/blob/a18e3b0cb81eaa4c682d68215079fe4efca991ae/docs/ESTADO_ACTUAL.md) se conserva en su commit y rama, junto con [la PR #1](https://github.com/HannDev2/gradient-lab/pull/1).
 
 ## Cambios implementados
 

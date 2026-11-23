@@ -72,3 +72,25 @@ Validación local posterior del ajuste de presupuesto: `CI=1 npm run test:e2e`, 
 ## Candidata v3 para exposición
 
 Pasada de refinamiento sobre `feature/visual-v3`: **33/33 unitarias, 54/54 E2E locales sobre producción (3.2 min), TypeScript/build aprobados**. Se conservan las 42 E2E anteriores y se añaden doce ejecuciones: precisión sin escrituras por foco, ayudas sin solapamientos, dos demos reproducibles/aisladas, alta densidad software y hero en tres anchos. La conclusión divergente también pasa Axe. Tras la suite se afinó solo la posición de etiquetas/controles del hero; seis pruebas específicas de hero/primer fotograma/WebGL aprobadas y resultado remoto en los checks de PR #2. [Informe completo y límites de la candidata](VISUAL_V3_RC.md). El renderer continúa siendo SwiftShader, con mejora de cadencia medida a alta densidad; sin extrapolar a GPU física.
+
+## V3 publicada y comprobada — 23 de noviembre de 2026
+
+La solicitud actual de los autores autoriza la publicación y sustituye las restricciones de las entregas anteriores.
+
+- PR [#2](https://github.com/HannDev2/gradient-lab/pull/2) fusionada en `feature/visual-v2` (`5645065`); PR [#1](https://github.com/HannDev2/gradient-lab/pull/1) fusionada en `main` (`4bf9baf759e0c70b3d7cb7e052fce26f07728d96`). El árbol de ambas fusiones coincide con V3 `2caf17b`: `037039a128c3a2b1463cd2396e072d41f23b485b`.
+- Verificación local antes de fusionar: `npm test` → **33/33 aprobadas**; `npm run build` → TypeScript y producción aprobados. Se mantiene el aviso de tamaño del chunk 3D diferido.
+- [Actions 45211731579](https://github.com/HannDev2/gradient-lab/actions/runs/45211731579): **build y deploy con conclusión `success`**. Se ejecutaron instalación, pruebas unitarias, tipos/build, navegador, WebGL y accesibilidad antes de publicar.
+- Sitio público: [https://hanndev2.github.io/gradient-lab/](https://hanndev2.github.io/gradient-lab/), accesible por HTTPS sin autenticación. La respuesta HTML coincide byte por byte con `dist/index.html` de V3; referencia JS `index-aDYFfl99.js` y CSS `index-BTEzw6iM.css`, sustituyendo los recursos de V1.
+- Suite completa contra Pages: `CI=1 PLAYWRIGHT_BASE_URL=https://hanndev2.github.io/gradient-lab/ npm run test:e2e` → **54/54 aprobadas en 4.1 min, sin reintentos**. Incluye rutas y recarga, cartel/PDF, ausencia de errores de consola/recursos, laboratorio, demos, teclado, movimiento reducido, WebGL/2D y Axe, en escritorio y móvil emulado.
+
+### README Electric Observatory
+
+Se reemplaza la presentación anterior por una introducción para lectores sin conocimientos previos, enlaces directos al sitio/presentación/laboratorio, tres SVG originales, una grabación real en GIF, documentación técnica desplegable y créditos de **Hanniel Cardoso Jaramillo** y **Angel Joseph Estrada Santos**. No cambia el código de la aplicación ni sus dependencias.
+
+- Recursos propios en `assets/readme/`: hero con la sección real de la pérdida, resultado del primer paso y créditos. Fondo y colores de `src/electric.css`; título Space Grotesk de la fuente local convertido a trazados. Descripciones y textos alternativos incluidos.
+- GIF: 12 s, 800×556, 72 fotogramas, 4,167,625 B. Fragmento de la grabación V3 existente; se enlazan vídeo completo y captura estática alternativa. `picture` sustituye automáticamente el GIF por la captura cuando se solicita movimiento reducido. Procedencia y regeneración en `assets/readme/README.md`.
+- README procesado por la API Markdown de GitHub. Previsualización local del HTML resultante a 966 y 390 px en temas claro y oscuro: **4/4 vistas sin imágenes ausentes ni desbordamiento horizontal**, con inspección visual de portada y cierre. No se presenta esta previsualización como una captura de la página remota ni como una prueba en dispositivo físico.
+- Auditoría de README: **6 imágenes locales comprobadas**, SVG válidos con título y `viewBox`; todos los enlaces locales existen. `git diff --check` aprobado.
+- El commit final solo actualiza README, recursos del README e informes; usa `[skip ci]` para conservar el despliegue ya comprobado sin repetir pruebas de aplicación por cambios documentales.
+
+Se mantienen los límites anteriores: sin prueba en GPU/móvil físicos ni auditoría manual con lector de pantalla. El renderer de navegador es SwiftShader; los resultados no certifican FPS en hardware real.
