@@ -3,13 +3,15 @@ import type { Dispatch } from 'react';
 import { chapters } from '../content/chapters';
 import { DEFAULT_EXAMPLE, evaluate, gradient, jacobian, step, vector } from '../math/engine';
 import type { Action, Preset } from '../state/simulation';
+import type { Snapshot } from '../math/engine';
 import { Arrow, Formula, number } from './shared';
 import { Network, PricePlot } from './Plots';
 
 const initial = evaluate(DEFAULT_EXAMPLE, DEFAULT_EXAMPLE.weights);
 const after = step(DEFAULT_EXAMPLE, initial.weights);
+const uphill = evaluate(DEFAULT_EXAMPLE, vector(initial.weights.map((w, i) => w + DEFAULT_EXAMPLE.eta * initial.gradient[i])));
 
-function ChapterExperiment({ chapter, dispatch }: { chapter: number; dispatch: Dispatch<Action> }) {
+export function ChapterExperiment({ chapter, dispatch, cue = 0, onSnapshot }: { chapter: number; dispatch: Dispatch<Action>; cue?: number; onSnapshot?: (snapshot: Snapshot) => void }) {
   const [revealed, setRevealed] = useState(false);
   const [active, setActive] = useState(0);
   const [lossView, setLossView] = useState(false);
@@ -17,6 +19,14 @@ function ChapterExperiment({ chapter, dispatch }: { chapter: number; dispatch: D
   const [updated, setUpdated] = useState(false);
   const [ascending, setAscending] = useState(false);
   const [preset, setPreset] = useState<Preset>('stable');
+  useEffect(() => {
+    if (!cue) return;
+    setRevealed(true); setActive((cue - 1) % 3); setBuilt(true);
+    setLossView(cue > 1); setUpdated(cue > 1);
+  }, [cue]);
+  useEffect(() => {
+    if (chapter === 5) onSnapshot?.(updated ? ascending ? uphill : after : initial);
+  }, [chapter, updated, ascending, onSnapshot]);
 
   switch (chapter) {
     case 1: return <div className="chapter-reto">
@@ -42,14 +52,14 @@ function ChapterExperiment({ chapter, dispatch }: { chapter: number; dispatch: D
       const g = gradient(DEFAULT_EXAMPLE.inputs, initial.weights, DEFAULT_EXAMPLE.target);
       return <div className="chapter-jacobian">
         <div className="matrix-header"><span>Una salida × tres pesos</span><span className="mono">J ∈ ℝ¹ˣ³</span></div>
-        <div className="matrix-construction"><span className="matrix-symbol">J =</span><div className="matrix" data-testid="jacobian-built">{jacobian(DEFAULT_EXAMPLE.inputs)[0].map((value, i) => <span key={i} className={built ? 'matrix-entry revealed' : 'matrix-entry'} style={{ animationDelay: `${i * 90}ms` }}>{built ? value : '·'}<small>∂ŷ/∂w{i + 1}</small></span>)}</div></div>
+        <div className="matrix-construction"><span className="matrix-symbol">J =</span><div className="matrix" data-testid="jacobian-built">{jacobian(DEFAULT_EXAMPLE.inputs)[0].map((value, i) => <span key={i} className={built ? 'matrix-entry revealed' : 'matrix-entry'} style={{ animationDelay: `${i * 90}ms` }}><span className="matrix-source" aria-hidden="true">w{i + 1} = {number(initial.weights[i], 1)}<svg viewBox="0 0 18 40" fill="none"><path d="M9 0v31m-5-5 5 5 5-5" stroke="currentColor" strokeWidth="1.5"/><circle cx="9" cy="36" r="2" fill="currentColor"/></svg></span><strong className="matrix-value">{built ? value : '·'}</strong><small>∂ŷ/∂w{i + 1}</small></span>)}</div></div>
         <button type="button" className="button secondary" onClick={() => setBuilt(v => !v)}>{built ? 'Reconstruir jacobiana' : 'Construir jacobiana'}<Arrow/></button>
         <div className="sensitivity-test"><p>Prueba local: aumenta un peso en <strong>0.01</strong>.</p><div className="segmented wide">{[0, 1, 2].map(i => <button key={i} type="button" aria-pressed={active === i} onClick={() => { setActive(i); setBuilt(true); }}>Mover w{i + 1}</button>)}</div><Formula>Δŷ = {DEFAULT_EXAMPLE.inputs[active]} × 0.01 = <span className="cyan">{number(prediction - initial.prediction)}</span> USD</Formula><p>La sensibilidad x{active + 1} convierte el movimiento del peso en cambio de salida.</p></div>
         <div className="chain-rule" data-built={built}><span>Ahora, de la salida a la pérdida</span><Formula>∇wL = Jᵀe = ({g.map((v, i) => <span className={active === i ? 'gradient-term selected' : 'gradient-term'} key={i} style={{ animationDelay: `${i * 100}ms` }}>{i ? ', ' : ''}{number(v, 0)}</span>)})ᵀ</Formula><p>Por ejemplo: ∂L/∂w{active + 1} = ({number(initial.error, 0)})({DEFAULT_EXAMPLE.inputs[active]}) = {number(g[active], 0)}.</p></div>
       </div>;
     }
     case 5: {
-      const preview = ascending ? evaluate(DEFAULT_EXAMPLE, vector(initial.weights.map((w, i) => w + DEFAULT_EXAMPLE.eta * initial.gradient[i]))) : after;
+      const preview = ascending ? uphill : after;
       return <div className="chapter-descent">
         <div className="descent-direction"><div className="direction-arrow" data-ascending={ascending}><svg viewBox="0 0 160 160" aria-hidden="true"><path d="M35 125L125 35M65 35h60v60"/></svg></div><div><span>{ascending ? 'En dirección del gradiente' : 'En dirección opuesta al gradiente'}</span><strong>{ascending ? '+∇L' : '−∇L'}</strong><span className={ascending ? 'coral' : 'green'}>L: {number(initial.loss, 0)} → {number(preview.loss, 4)}</span></div></div>
         <div className="segmented wide"><button type="button" aria-pressed={!ascending} onClick={() => { setAscending(false); setUpdated(false); }}>Descender</button><button type="button" aria-pressed={ascending} onClick={() => { setAscending(true); setUpdated(false); }}>Ascender</button></div>
@@ -83,7 +93,7 @@ export function Walkthrough({ chapter, dispatch, restart }: { chapter: number; d
   }, [chapter, presentation]);
   return <main id="main" className={`walkthrough chapter-${chapter} ${presentation ? 'presentation' : ''}`}>
     <aside className="chapter-sidebar" aria-label="Capítulos del experimento"><div className="chapter-progress"><span>El experimento</span><span className="mono" data-testid="chapter-progress">{chapter} / 7</span></div><nav aria-label="Índice del recorrido">{chapters.map((c, i) => <a href={`#/aprender/${i + 1}`} key={c.title} aria-current={chapter === i + 1 ? 'step' : undefined}><span className="chapter-index">{String(i + 1).padStart(2, '0')}</span><span>{c.title}</span><span className="chapter-status" aria-hidden="true"/></a>)}</nav><button type="button" className="text-button restart" onClick={restart}>Reiniciar recorrido<svg className="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V3m0 6h6M4 9a8 8 0 111 9" stroke="currentColor" strokeWidth="1.5"/></svg></button></aside>
-    <section className="chapter-main"><div className="presentation-toolbar"><button type="button" className="text-button" aria-pressed={presentation} onClick={() => setPresentation(v => !v)}>{presentation ? 'Salir de presentación' : 'Modo presentación'}<svg className="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5M4 15v5h5m6 0h5v-5" stroke="currentColor" strokeWidth="1.5"/></svg></button>{presentation && <><span className="mono">← → capítulos · Esc salir</span><button className="text-button" type="button" onClick={() => { setExperimentVersion(v => v + 1); dispatch({ type: 'reset' }); window.location.hash = '/aprender/1'; }}>Restaurar experimento</button><a href="#/aprender/6" className="text-button">Mostrar comparación<Arrow/></a></>}</div><div className="chapter-copy" key={`copy-${chapter}`}><h1 tabIndex={-1}>{content.heading.split('\n').map((line, i) => <span key={line} className={i ? 'muted-title' : ''}>{line}</span>)}</h1><p className="chapter-idea">{content.idea}</p></div>
+    <section className="chapter-main"><div className="presentation-toolbar"><button type="button" className="text-button" aria-pressed={presentation} onClick={() => setPresentation(v => !v)}>{presentation ? 'Salir de presentación' : 'Modo presentación'}<svg className="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5M4 15v5h5m6 0h5v-5" stroke="currentColor" strokeWidth="1.5"/></svg></button><a href="#/presentacion" className="text-button">Presentación cinematográfica<Arrow/></a>{presentation && <><span className="mono">← → capítulos · Esc salir</span><button className="text-button" type="button" onClick={() => { setExperimentVersion(v => v + 1); dispatch({ type: 'reset' }); window.location.hash = '/aprender/1'; }}>Restaurar experimento</button><a href="#/aprender/6" className="text-button">Mostrar comparación<Arrow/></a></>}</div><div className="chapter-copy" key={`copy-${chapter}`}><h1 tabIndex={-1}>{content.heading.split('\n').map((line, i) => <span key={line} className={i ? 'muted-title' : ''}>{line}</span>)}</h1><p className="chapter-idea">{content.idea}</p></div>
       <div className="chapter-body"><div className="chapter-visual" key={`${chapter}-${experimentVersion}`}><ChapterExperiment chapter={chapter} dispatch={dispatch}/></div><div className="chapter-explanation"><h2>{content.title}</h2><Formula>{content.formula}</Formula><p>{content.note}</p><div className="try-note"><span className="dot green-dot"/><p>{content.interaction}</p></div></div></div>
       <nav className="chapter-navigation" aria-label="Navegar recorrido"><a className="text-button" href={chapter > 1 ? `#/aprender/${chapter - 1}` : '#/'} aria-label={chapter > 1 ? 'Capítulo anterior' : 'Volver al inicio'}><Arrow back/>{chapter > 1 ? 'Anterior' : 'Inicio'}</a><span className="mono">{String(chapter).padStart(2, '0')} — {content.title}</span>{chapter < 7 ? <a className="button primary" aria-label="Siguiente capítulo" href={`#/aprender/${chapter + 1}`}>Continuar<Arrow/></a> : <a className="button primary" href="#/laboratorio">Laboratorio<Arrow/></a>}</nav>
     </section>

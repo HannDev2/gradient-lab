@@ -1,0 +1,124 @@
+{
+  "phase": "before",
+  "date": "2026-11-12T04:48:30.188Z",
+  "measurements": [
+    {
+      "width": 768,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        628,
+        690
+      ],
+      "fcpMs": 212,
+      "frames": {
+        "samples": 261,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.299999999999955,
+        "over33ms": 11
+      },
+      "longTasksMs": [
+        63,
+        280
+      ],
+      "draws": 1260,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        1332,
+        945
+      ],
+      "fcpMs": 192,
+      "frames": {
+        "samples": 209,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "over33ms": 31
+      },
+      "longTasksMs": [
+        287,
+        66
+      ],
+      "draws": 645,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        1332,
+        945
+      ],
+      "fcpMs": 196,
+      "frames": {
+        "samples": 207,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "over33ms": 32
+      },
+      "longTasksMs": [
+        269,
+        54,
+        61
+      ],
+      "draws": 645,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1440,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        1332,
+        945
+      ],
+      "fcpMs": 212,
+      "frames": {
+        "samples": 224,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 49.899999999999636,
+        "over33ms": 26
+      },
+      "longTasksMs": [
+        265,
+        56
+      ],
+      "draws": 720,
+      "overflow": false,
+      "idleDraws": 0
+    },
+    {
+      "width": 1920,
+      "deviceScaleFactor": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "framebuffer": [
+        1796,
+        995
+      ],
+      "fcpMs": 232,
+      "frames": {
+        "samples": 194,
+        "medianMs": 16.700000000000273,
+        "p95Ms": 50,
+        "over33ms": 33
+      },
+      "longTasksMs": [
+        272,
+        50,
+        64
+      ],
+      "draws": 675,
+      "overflow": false,
+      "idleDraws": 0
+    }
+  ],
+  "scope": "Chromium; renderer explícito; 5 s de entrada a DPR de dispositivo 2. Cadencia rAF, no FPS de GPU. Tres cargas 1440 y una por cada otro ancho; no es benchmark de hardware físico."
+}
